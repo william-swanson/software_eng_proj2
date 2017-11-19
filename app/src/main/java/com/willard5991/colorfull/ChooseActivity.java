@@ -1,6 +1,7 @@
 package com.willard5991.colorfull;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,6 +20,10 @@ public class ChooseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Button submitButton = (Button) findViewById(R.id.submit_button);
+
+        Intent transitionIntent = getIntent();
+        int colorValue = (int) transitionIntent.getIntExtra("color",0);
+        Color chosenColor = Color.valueOf(colorValue);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -21,7 +21,8 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_choose"
-        android:id="@+id/include" />
+        android:id="@+id/include"
+        android:layout_height="466dp" />
 
     <Button
         android:id="@+id/submit_button"
