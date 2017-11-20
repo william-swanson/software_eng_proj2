@@ -3,4 +3,77 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="color1">#FF0000</color>
+    <color name="color2">#ff9933</color>
+    <color name="color3">#ffff00</color>
+    <color name="color4">#ccff33</color>
+    <color name="color5">#99ff33</color>
+    <color name="color6">#00ccff</color>
+    <color name="color7">#cc66ff</color>
+    <color name="color8">#ff9900</color>
+    <color name="color9">#ccff33</color>
+    <color name="color10">#0066ff</color>
+    <color name="color11">#FF0000</color>
+    <color name="color12">#0000ff</color>
+    <color name="color13">#ffff00</color>
+    <color name="color14">#ccff33</color>
+    <color name="color15">#003399</color>
+    <color name="color16">#FF0000</color>
+    <color name="color17">#ff9933</color>
+    <color name="color18">#ffff00</color>
+    <color name="color19">#ccff33</color>
+    <color name="color20">#99ff33</color>
+    <color name="color21">#FF0000</color>
+    <color name="color22">#ff9933</color>
+    <color name="color23">#ffff00</color>
+    <color name="color24">#ccff33</color>
+    <color name="color25">#99ff33</color>
+    <color name="color26">#FF0000</color>
+    <color name="color27">#ff9933</color>
+    <color name="color28">#3333ff</color>
+    <color name="color29">#ccff33</color>
+    <color name="color30">#99ff33</color>
+    <color name="color31">#006666</color>
+    <color name="color32">#ff9933</color>
+    <color name="color33">#ffff00</color>
+    <color name="color34">#ccff33</color>
+    <color name="color35">#99ff33</color>
+
+    <array name="colorPicker">
+        <item>@color/color1</item>
+        <item>@color/color2</item>
+        <item>@color/color3</item>
+        <item>@color/color4</item>
+        <item>@color/color5</item>
+        <item>@color/color1</item>
+        <item>@color/color2</item>
+        <item>@color/color3</item>
+        <item>@color/color4</item>
+        <item>@color/color5</item>
+        <item>@color/color1</item>
+        <item>@color/color2</item>
+        <item>@color/color3</item>
+        <item>@color/color4</item>
+        <item>@color/color5</item>
+        <item>@color/color5</item>
+        <item>@color/color1</item>
+        <item>@color/color2</item>
+        <item>@color/color3</item>
+        <item>@color/color4</item>
+        <item>@color/color5</item>
+        <item>@color/color5</item>
+        <item>@color/color1</item>
+        <item>@color/color2</item>
+        <item>@color/color3</item>
+        <item>@color/color4</item>
+        <item>@color/color5</item>
+        <item>@color/color5</item>
+        <item>@color/color1</item>
+        <item>@color/color2</item>
+        <item>@color/color3</item>
+        <item>@color/color4</item>
+        <item>@color/color5</item>
+        <item>@color/color4</item>
+        <item>@color/color5</item>
+    </array>
 </resources>
