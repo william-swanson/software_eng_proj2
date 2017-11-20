@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -20,7 +21,7 @@ public class ColorRecyclerViewAdapter extends RecyclerView.Adapter<ColorRecycler
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
-    Button colorButton;
+    private ImageView colorButton;
 
     // data is passed into the constructor
     ColorRecyclerViewAdapter(Context context, int[] data) {
@@ -58,7 +59,7 @@ public class ColorRecyclerViewAdapter extends RecyclerView.Adapter<ColorRecycler
 
         ViewHolder(View itemView) {
             super(itemView);
-            colorButton = (Button) itemView.findViewById(R.id.colorCircle);
+            colorButton = (ImageView) itemView.findViewById(R.id.colorCircle);
             itemView.setOnClickListener(this);
         }
 

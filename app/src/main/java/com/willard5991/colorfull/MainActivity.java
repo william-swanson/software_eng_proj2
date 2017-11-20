@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
         Log.i("TAG", "You clicked number " + adapter.getItem(position) + ", which is at cell position " + position);
         //GradientDrawable background = (GradientDrawable) submitButton.getBackground();
         //background.setColor(data[position]);
-        //submitButton.setBackgroundResource(R.color.colorAccent);
+        submitButton.setBackgroundColor(data[position]);
     }
 
 
