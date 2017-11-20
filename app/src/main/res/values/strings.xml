@@ -1,5 +1,3 @@
 <resources>
     <string name="app_name">ColorFull</string>
-    <string name="title_activity_choose">Activity Log</string>
-    <string name="submit_button">Submit</string>
 </resources>
