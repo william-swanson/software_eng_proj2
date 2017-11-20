@@ -1,5 +1,6 @@
 package com.willard5991.colorfull;
 
+import android.content.Intent;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.app.AppCompatActivity;
@@ -21,8 +22,7 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.activity_main);     
 
         // data to populate the RecyclerView with
         //String[] data = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35"};
@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
         adapter = new ColorRecyclerViewAdapter(this, data);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
-
 
 
     }
