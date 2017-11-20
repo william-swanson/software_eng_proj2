@@ -11,6 +11,7 @@ import java.util.Date;
 
 public class ActivityEntry {
 
+    private int id;
     private Date date;
     private Time time;
     private String activityName;
@@ -29,6 +30,9 @@ public class ActivityEntry {
         this.activityName = a;
         this.color = c;
     }
+
+    public int getId() { return this.id; }
+    public void setId(int i) { this.id = i; }
 
     public Date getDate(){
         return this.date;
