@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity implements ColorRecyclerViewAdapter.ItemClickListener {
 
@@ -18,6 +19,9 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
     int[] data;
     Button submitButton;
     RecyclerView myView;
+    ImageButton xOut;
+    int position;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
         data = context.getResources().getIntArray(R.array.colorPicker);
         submitButton = (Button) findViewById(R.id.submit_button);
         myView = (RecyclerView) findViewById(R.id.rvColors);
+        xOut = (ImageButton) findViewById(R.id.x_button);
 
         // set up the RecyclerView
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvColors);
@@ -38,15 +43,37 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
+        xOut.setOnClickListener (new View.OnClickListener(){
+            @Override
+            public void onClick (View view) {
+                Intent intent = new Intent(view.getContext(), AnalysisActivity.class);
+
+                startActivity(intent);
+            }
+        });
+
+
+
 
     }
 
     @Override
-    public void onItemClick(View view, int position) {
+    public void onItemClick(View view, int colorPosition) {
+        position = colorPosition;
         Log.i("TAG", "You clicked number " + adapter.getItem(position) + ", which is at cell position " + position);
         //GradientDrawable background = (GradientDrawable) submitButton.getBackground();
         //background.setColor(data[position]);
         submitButton.setBackgroundColor(data[position]);
+
+        submitButton.setOnClickListener (new View.OnClickListener(){
+            @Override
+            public void onClick (View view) {
+                Intent intent = new Intent(view.getContext(), ChooseActivity.class);
+                intent.putExtra("color", data[position]);
+
+                startActivity(intent);
+            }
+        });
     }
 
 

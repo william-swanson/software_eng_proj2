@@ -3,4 +3,5 @@
     <string name="title_activity_choose">Activity Log</string>
     <string name="submit_button">Submit</string>
     <string name="select_button">Select</string>
+    <string name="how_feeling">How are you feeling?</string>
 </resources>
