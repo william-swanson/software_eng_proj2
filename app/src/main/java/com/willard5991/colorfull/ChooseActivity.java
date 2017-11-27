@@ -3,6 +3,8 @@ package com.willard5991.colorfull;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -39,6 +41,11 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
         Intent transitionIntent = getIntent();
         final int colorValue = (int) transitionIntent.getIntExtra("color",0);
         Log.i("TAG", "Color selected: " + Integer.toString(colorValue));
+
+        ConstraintLayout v = (ConstraintLayout) findViewById(R.id.screen);
+//        View root = v.getRootView();
+        CoordinatorLayout l = (CoordinatorLayout) findViewById(R.id.back);
+        l.setBackgroundColor(colorValue);
 
         //TODO: do we want to make the activity options and/or the submit button the same color what was chosen on the previous screen?
         //submitButton.setBackgroundColor(colorValue);
