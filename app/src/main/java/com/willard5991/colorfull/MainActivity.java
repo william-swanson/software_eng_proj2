@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
     int[] data;
     Button submitButton;
     RecyclerView myView;
+    int colorSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,15 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(),ChooseActivity.class);
+                intent.putExtra("color",colorSelected);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -46,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
         Log.i("TAG", "You clicked number " + adapter.getItem(position) + ", which is at cell position " + position);
         //GradientDrawable background = (GradientDrawable) submitButton.getBackground();
         //background.setColor(data[position]);
+        colorSelected = data[position];
+        Log.i("TAG","Color selected: " + Integer.toString(colorSelected));
         submitButton.setBackgroundColor(data[position]);
     }
 

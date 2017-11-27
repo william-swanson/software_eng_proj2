@@ -9,6 +9,7 @@
     tools:showIn="@layout/activity_choose">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/actRView"
         android:layout_width="364dp"
         android:layout_height="423dp"
         android:layout_marginRight="8dp"
