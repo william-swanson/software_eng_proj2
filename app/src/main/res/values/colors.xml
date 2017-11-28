@@ -37,7 +37,7 @@
     <color name="color32">#ff9933</color>
     <color name="color33">#ffff00</color>
     <color name="color34">#ccff33</color>
-    <color name="color35">#99ff33</color>
+    <color name="color35">#ffffff</color>
 
     <array name="colorPicker">
         <item>@color/color1</item>
@@ -74,6 +74,6 @@
         <item>@color/color4</item>
         <item>@color/color5</item>
         <item>@color/color4</item>
-        <item>@color/color5</item>
+        <item>@color/color35</item>
     </array>
 </resources>

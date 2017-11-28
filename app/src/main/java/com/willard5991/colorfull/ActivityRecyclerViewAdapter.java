@@ -1,5 +1,6 @@
 package com.willard5991.colorfull;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class ActivityRecyclerViewAdapter extends RecyclerView.Adapter<ActivityRecyclerViewAdapter.MyViewHolder> {
 
     private ArrayList<ActivityEntry> mData = new ArrayList<ActivityEntry>();
+    private int backgroundColor;
 
     private LayoutInflater mInflater;
     private ActivityRecyclerViewAdapter.ItemClickListener mClickListener;
@@ -29,6 +31,10 @@ public class ActivityRecyclerViewAdapter extends RecyclerView.Adapter<ActivityRe
         public MyViewHolder(View itemView) {
             super(itemView);
             activityButton = (TextView) itemView.findViewById(R.id.activityRect);
+            if(backgroundColor == -1){
+//                activityButton.setBackgroundColor(Color.parseColor("#e6e7e8"));
+                activityButton.setBackgroundResource(R.drawable.activity_box_white);
+            }
             itemView.setOnClickListener(this);
         }
 
@@ -38,8 +44,9 @@ public class ActivityRecyclerViewAdapter extends RecyclerView.Adapter<ActivityRe
         }
     }
 
-    public ActivityRecyclerViewAdapter(ArrayList<ActivityEntry> data) {
+    public ActivityRecyclerViewAdapter(ArrayList<ActivityEntry> data, int bc) {
         this.mData = data;
+        this.backgroundColor = bc;
     }
 
     // inflates the cell layout from xml when needed
