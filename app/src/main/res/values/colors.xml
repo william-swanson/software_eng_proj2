@@ -1,79 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#cfd0d1</color>
+    <color name="colorPrimaryDark">#a7a9ab</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="color1">#FF0000</color>
-    <color name="color2">#ff9933</color>
-    <color name="color3">#ffff00</color>
-    <color name="color4">#ccff33</color>
-    <color name="color5">#99ff33</color>
-    <color name="color6">#00ccff</color>
-    <color name="color7">#cc66ff</color>
-    <color name="color8">#ff9900</color>
-    <color name="color9">#ccff33</color>
-    <color name="color10">#0066ff</color>
-    <color name="color11">#FF0000</color>
-    <color name="color12">#0000ff</color>
-    <color name="color13">#ffff00</color>
-    <color name="color14">#ccff33</color>
-    <color name="color15">#003399</color>
-    <color name="color16">#FF0000</color>
-    <color name="color17">#ff9933</color>
-    <color name="color18">#ffff00</color>
-    <color name="color19">#ccff33</color>
-    <color name="color20">#99ff33</color>
-    <color name="color21">#FF0000</color>
-    <color name="color22">#ff9933</color>
-    <color name="color23">#ffff00</color>
-    <color name="color24">#ccff33</color>
-    <color name="color25">#99ff33</color>
-    <color name="color26">#FF0000</color>
-    <color name="color27">#ff9933</color>
-    <color name="color28">#3333ff</color>
-    <color name="color29">#ccff33</color>
-    <color name="color30">#99ff33</color>
-    <color name="color31">#006666</color>
-    <color name="color32">#ff9933</color>
-    <color name="color33">#ffff00</color>
-    <color name="color34">#ccff33</color>
-    <color name="color35">#ffffff</color>
-
+  
+    <color name="color1">#FFdd00</color>
+    <color name="color2">#fdee2b</color>
+    <color name="color3">#ffc906</color>
+    <color name="color4">#ffa628</color>
+    <color name="color5">#ef891d</color>
+    <color name="color6">#ff561f</color>
+    <color name="color7">#db1921</color>
+    <color name="color8">#ed214f</color>
+    <color name="color9">#ff1284</color>
+    <color name="color10">#ff97c1</color>
+    <color name="color11">#ff92f8</color>
+    <color name="color12">#fd37ff</color>
+    <color name="color13">#9e4b94</color>
+    <color name="color14">#7d54a2</color>
+    <color name="color15">#1f419a</color>
+    <color name="color16">#4391ff</color>
+    <color name="color17">#b8ceff</color>
+    <color name="color18">#3dd6ff</color>
+    <color name="color19">#6cbbbd</color>
+    <color name="color20">#6cfeff</color>
+    <color name="color21">#d8ffcd</color>
+    <color name="color22">#15ff87</color>
+    <color name="color23">#009a4b</color>
+    <color name="color24">#61bb46</color>
+    <color name="color25">#9dff1e</color>
+    <color name="color26">#d6c6ad</color>
+    <color name="color27">#b9a185</color>
+    <color name="color28">#9c8164</color>
+    <color name="color29">#8a6d4d</color>
+    <color name="color30">#70583e</color>
+    <color name="color31">#ffffff</color>
+    <color name="color32">#d1d2d4</color>
+    <color name="color33">#a7a9ab</color>
+    <color name="color34">#808284</color>
+    <color name="color35">#000000</color>
+  
     <array name="colorPicker">
         <item>@color/color1</item>
         <item>@color/color2</item>
         <item>@color/color3</item>
         <item>@color/color4</item>
         <item>@color/color5</item>
-        <item>@color/color1</item>
-        <item>@color/color2</item>
-        <item>@color/color3</item>
-        <item>@color/color4</item>
-        <item>@color/color5</item>
-        <item>@color/color1</item>
-        <item>@color/color2</item>
-        <item>@color/color3</item>
-        <item>@color/color4</item>
-        <item>@color/color5</item>
-        <item>@color/color5</item>
-        <item>@color/color1</item>
-        <item>@color/color2</item>
-        <item>@color/color3</item>
-        <item>@color/color4</item>
-        <item>@color/color5</item>
-        <item>@color/color5</item>
-        <item>@color/color1</item>
-        <item>@color/color2</item>
-        <item>@color/color3</item>
-        <item>@color/color4</item>
-        <item>@color/color5</item>
-        <item>@color/color5</item>
-        <item>@color/color1</item>
-        <item>@color/color2</item>
-        <item>@color/color3</item>
-        <item>@color/color4</item>
-        <item>@color/color5</item>
-        <item>@color/color4</item>
+        <item>@color/color6</item>
+        <item>@color/color7</item>
+        <item>@color/color8</item>
+        <item>@color/color9</item>
+        <item>@color/color10</item>
+        <item>@color/color11</item>
+        <item>@color/color12</item>
+        <item>@color/color13</item>
+        <item>@color/color14</item>
+        <item>@color/color15</item>
+        <item>@color/color16</item>
+        <item>@color/color17</item>
+        <item>@color/color18</item>
+        <item>@color/color19</item>
+        <item>@color/color20</item>
+        <item>@color/color21</item>
+        <item>@color/color22</item>
+        <item>@color/color23</item>
+        <item>@color/color24</item>
+        <item>@color/color25</item>
+        <item>@color/color26</item>
+        <item>@color/color27</item>
+        <item>@color/color28</item>
+        <item>@color/color29</item>
+        <item>@color/color30</item>
+        <item>@color/color31</item>
+        <item>@color/color32</item>
+        <item>@color/color33</item>
+        <item>@color/color34</item>
         <item>@color/color35</item>
     </array>
 </resources>

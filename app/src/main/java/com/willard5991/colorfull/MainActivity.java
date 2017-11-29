@@ -2,6 +2,7 @@ package com.willard5991.colorfull;
 
 import android.content.Intent;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity implements ColorRecyclerViewAdapter.ItemClickListener {
 
@@ -18,7 +20,8 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
     int[] data;
     Button submitButton;
     RecyclerView myView;
-    int colorSelected;
+    ImageButton xOut;
+    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
         data = context.getResources().getIntArray(R.array.colorPicker);
         submitButton = (Button) findViewById(R.id.submit_button);
         myView = (RecyclerView) findViewById(R.id.rvColors);
+        xOut = (ImageButton) findViewById(R.id.x_button);
 
         // set up the RecyclerView
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvColors);
@@ -39,26 +43,40 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
+        xOut.setOnClickListener (new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(),ChooseActivity.class);
-                intent.putExtra("color",colorSelected);
+            public void onClick (View view) {
+                Intent intent = new Intent(view.getContext(), AnalysisActivity.class);
                 startActivity(intent);
             }
         });
 
-
     }
 
     @Override
-    public void onItemClick(View view, int position) {
+    public void onItemClick(View view, int colorPosition) {
+        position = colorPosition;
         Log.i("TAG", "You clicked number " + adapter.getItem(position) + ", which is at cell position " + position);
-        //GradientDrawable background = (GradientDrawable) submitButton.getBackground();
-        //background.setColor(data[position]);
-        colorSelected = data[position];
         Log.i("TAG","Color selected: " + Integer.toString(colorSelected));
+
+        //if black button, button text white
+        if(position == 34) {
+            submitButton.setTextColor(Color.parseColor("#ffffff"));
+        }
+        else {
+            submitButton.setTextColor(Color.parseColor("#000000"));
+        }
         submitButton.setBackgroundColor(data[position]);
+
+        submitButton.setOnClickListener (new View.OnClickListener(){
+            @Override
+            public void onClick (View view) {
+                Intent intent = new Intent(view.getContext(), ChooseActivity.class);
+                intent.putExtra("color", data[position]);
+
+                startActivity(intent);
+            }
+        });
     }
 
 
