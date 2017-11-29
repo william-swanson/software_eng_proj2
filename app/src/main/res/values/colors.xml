@@ -3,7 +3,7 @@
     <color name="colorPrimary">#cfd0d1</color>
     <color name="colorPrimaryDark">#a7a9ab</color>
     <color name="colorAccent">#FF4081</color>
-
+  
     <color name="color1">#FFdd00</color>
     <color name="color2">#fdee2b</color>
     <color name="color3">#ffc906</color>
@@ -39,7 +39,7 @@
     <color name="color33">#a7a9ab</color>
     <color name="color34">#808284</color>
     <color name="color35">#000000</color>
-
+  
     <array name="colorPicker">
         <item>@color/color1</item>
         <item>@color/color2</item>

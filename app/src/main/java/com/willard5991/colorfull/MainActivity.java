@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
     ImageButton xOut;
     int position;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,13 +47,9 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
             @Override
             public void onClick (View view) {
                 Intent intent = new Intent(view.getContext(), AnalysisActivity.class);
-
                 startActivity(intent);
             }
         });
-
-
-
 
     }
 
@@ -62,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
     public void onItemClick(View view, int colorPosition) {
         position = colorPosition;
         Log.i("TAG", "You clicked number " + adapter.getItem(position) + ", which is at cell position " + position);
+        Log.i("TAG","Color selected: " + Integer.toString(colorSelected));
 
         //if black button, button text white
         if(position == 34) {

@@ -23,6 +23,7 @@ public class ColorRecyclerViewAdapter extends RecyclerView.Adapter<ColorRecycler
 
     private ImageView colorButton;
 
+    //TODO: shouldn't this be public?
     // data is passed into the constructor
     ColorRecyclerViewAdapter(Context context, int[] data) {
         this.mInflater = LayoutInflater.from(context);
