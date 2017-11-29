@@ -32,6 +32,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:gravity="center_vertical"
-        app:srcCompat="@drawable/exit_icon" />
+        
+        app:srcCompat="@drawable/Exit_Icon_Black" />
 
 </RelativeLayout>
