@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import io.realm.Realm;
+
 public class MainActivity extends AppCompatActivity implements ColorRecyclerViewAdapter.ItemClickListener {
 
     ColorRecyclerViewAdapter adapter;
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
     int[] data;
     Button submitButton;
     RecyclerView myView;
+    public Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

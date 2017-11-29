@@ -5,11 +5,13 @@ import android.graphics.Color;
 import java.sql.Time;
 import java.util.Date;
 
+import io.realm.RealmModel;
+
 /**
  * Created by willard5991 on 11/15/2017.
  */
 
-public class ActivityEntry {
+public class ActivityEntry implements RealmModel {
 
     private int id;
     private Date date;
