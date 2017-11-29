@@ -2,6 +2,7 @@ package com.willard5991.colorfull;
 
 import android.content.Intent;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -61,8 +62,14 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
     public void onItemClick(View view, int colorPosition) {
         position = colorPosition;
         Log.i("TAG", "You clicked number " + adapter.getItem(position) + ", which is at cell position " + position);
-        //GradientDrawable background = (GradientDrawable) submitButton.getBackground();
-        //background.setColor(data[position]);
+
+        //if black button, button text white
+        if(position == 34) {
+            submitButton.setTextColor(Color.parseColor("#ffffff"));
+        }
+        else {
+            submitButton.setTextColor(Color.parseColor("#000000"));
+        }
         submitButton.setBackgroundColor(data[position]);
 
         submitButton.setOnClickListener (new View.OnClickListener(){

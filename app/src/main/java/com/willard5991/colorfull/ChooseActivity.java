@@ -24,7 +24,6 @@ public class ChooseActivity extends AppCompatActivity {
         Intent transitionIntent = getIntent();
         int colorValue = (int) transitionIntent.getIntExtra("color",0);
         Color chosenColor = Color.valueOf(colorValue);
-        //submitButton.setBackgroundColor(colorValue);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
