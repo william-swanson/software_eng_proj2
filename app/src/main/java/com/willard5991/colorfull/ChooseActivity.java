@@ -82,17 +82,8 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(),ChooseActivity.class);
-                intent.putExtra("color",colorValue);
+                Intent intent = new Intent(getBaseContext(),AnalysisActivity.class);
                 startActivity(intent);
-            }
-        });
-
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Intent intent = new Intent(getBaseContext(),AnalysisActivity.class);
-                //startActivity(intent);
             }
         });
     }
