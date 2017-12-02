@@ -41,6 +41,9 @@ public class ChartsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        chooseActivity = (ChooseActivity) this.getActivity();
+        analysisActivity = (AnalysisActivity) this.getActivity();
+
         /*
         pieChart = (PieChart) getActivity().findViewById(R.id.pie_chart);
 
