@@ -2,6 +2,8 @@ package com.willard5991.colorfull;
 
 import io.realm.RealmObject;
 
+import io.realm.RealmModel;
+
 /**
  * Created by willard5991 on 11/15/2017.
  */

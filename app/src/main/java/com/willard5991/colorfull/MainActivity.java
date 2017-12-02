@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import io.realm.Realm;
+
 public class MainActivity extends AppCompatActivity implements ColorRecyclerViewAdapter.ItemClickListener {
 
     ColorRecyclerViewAdapter adapter;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
     RecyclerView myView;
     ImageButton xOut;
     int position;
+    public Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
