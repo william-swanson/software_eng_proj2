@@ -35,15 +35,12 @@ public class ChartsFragment extends Fragment {
     public ChartsFragment() {
         // Required empty public constructor
     }
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        pieChart = (PieChart) view.findViewById(R.id.calendar_view);
+        /*
+        pieChart = (PieChart) getActivity().findViewById(R.id.pie_chart);
 
 
         pieChart.setRotationEnabled(true);
@@ -58,7 +55,8 @@ public class ChartsFragment extends Fragment {
         //pieChart.setEntryLabelTextSize(20);
         //More options just check out the documentation!
 
-        addDataSet();
+        //JENNA COMMENT
+        //addDataSet();
 
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -74,9 +72,19 @@ public class ChartsFragment extends Fragment {
 
             }
         });
+        */
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
         return view;
     }
+
 
     private void addDataSet() {
         ArrayList<Color> colors = getUniqueColors();
