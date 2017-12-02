@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -29,7 +30,7 @@ import io.realm.RealmResults;
 public class ChartsFragment extends Fragment {
 
     private MainActivity mainActivity;
-
+    private TextView testingView;
     private PieChart pieChart;
 
     public ChartsFragment() {
@@ -80,8 +81,8 @@ public class ChartsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_charts, container, false);
+        testingView = (TextView) view.findViewById(R.id.textViewTest);
         return view;
     }
 
