@@ -23,6 +23,7 @@ public class ColorRecyclerViewAdapter extends RecyclerView.Adapter<ColorRecycler
 
     private ImageView colorButton;
 
+    //TODO: shouldn't this be public?
     // data is passed into the constructor
     ColorRecyclerViewAdapter(Context context, int[] data) {
         this.mInflater = LayoutInflater.from(context);
@@ -44,6 +45,11 @@ public class ColorRecyclerViewAdapter extends RecyclerView.Adapter<ColorRecycler
         //Drawable background = colorButton.getBackground();
         GradientDrawable circleBG = (GradientDrawable) colorButton.getBackground();
         circleBG.setColor(mData[position]);
+
+//        if(mData[positon] == //white//) {
+//
+//        circleBG.setStroke(3, Color.RED); // set stroke width and stroke color
+//        }
     }
 
     // total number of cells

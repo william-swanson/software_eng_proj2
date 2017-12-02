@@ -1,9 +1,6 @@
 package com.willard5991.colorfull;
 
-import android.graphics.Color;
-
-import java.sql.Time;
-import java.util.Date;
+import io.realm.RealmObject;
 
 import io.realm.RealmModel;
 
@@ -11,25 +8,26 @@ import io.realm.RealmModel;
  * Created by willard5991 on 11/15/2017.
  */
 
-public class ActivityEntry implements RealmModel {
+public class ActivityEntry extends RealmObject{
 
     private int id;
     private Date date;
-    private Time time;
+    private long time;
     private String activityName;
-    private Color color;
+    private int color;
+
 
     public ActivityEntry(){
         this.date = new Date();
-        this.time = new Time(0); //no empty constructor, apparently
+        this.time = 0;
         this.activityName = new String();
-        this.color = new Color();
+        this.color = -1; //set to white
     }
 
-    public ActivityEntry(Date d, Time t, String a, Color c){
+    public ActivityEntry(Date d, long t, String n, int c){
         this.date = d;
         this.time = t;
-        this.activityName = a;
+        this.activityName = n;
         this.color = c;
     }
 
@@ -43,10 +41,10 @@ public class ActivityEntry implements RealmModel {
         this.date = d;
     }
 
-    public Time getTime(){
+    public long getTime(){
         return this.time;
     }
-    public void setTime(Time t){
+    public void setTime(long t){
         this.time = t;
     }
 
@@ -57,11 +55,13 @@ public class ActivityEntry implements RealmModel {
         this.activityName = a;
     }
 
-    public Color getColor(){
+    public int getColor(){
         return this.color;
     }
-    public void setColor(Color c){
+    public void setColor(int c){
         this.color = c;
     }
+
+
 
 }
