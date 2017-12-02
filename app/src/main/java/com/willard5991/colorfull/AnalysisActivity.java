@@ -17,7 +17,7 @@ import io.realm.RealmResults;
 
 public class AnalysisActivity extends AppCompatActivity {
 
-    private Spinner filterSpinner;
+    public Spinner filterSpinner;
     private MainActivity mainActivity;
 
     @Override
@@ -84,9 +84,9 @@ public class AnalysisActivity extends AppCompatActivity {
 
     public ArrayList<String> getUniqueActivities(){
         ArrayList<String> activityNames = new ArrayList<String>();
-        //RealmResults<ActivityEntry> activities = mainActivity.realm.where(ActivityEntry.class).findAll();
+        RealmResults<ActivityEntry> activities = mainActivity.realm.where(ActivityEntry.class).findAll();
         activityNames.add("All");
-        /*
+
         for (ActivityEntry activity: activities)
         {
             for(String activityNameX: activityNames)
@@ -97,7 +97,7 @@ public class AnalysisActivity extends AppCompatActivity {
                 }
             }
         }
-        */
+
         return activityNames;
     }
 

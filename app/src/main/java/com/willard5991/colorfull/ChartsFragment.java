@@ -29,7 +29,8 @@ import io.realm.RealmResults;
  */
 public class ChartsFragment extends Fragment {
 
-    private MainActivity mainActivity;
+    private ChooseActivity chooseActivity;
+    private AnalysisActivity analysisActivity;
     private TextView testingView;
     private PieChart pieChart;
 
@@ -88,8 +89,9 @@ public class ChartsFragment extends Fragment {
 
 
     private void addDataSet() {
-        ArrayList<Color> colors = getUniqueColors();
+        ArrayList<ActivityEntry> colors = getUniqueColors();
         ArrayList<PieEntry> yEntrys = getYData(colors);
+        int i = 0;
 
         //create the data set
         PieDataSet pieDataSet = new PieDataSet(yEntrys, "Employee Sales");
@@ -97,10 +99,11 @@ public class ChartsFragment extends Fragment {
         pieDataSet.setValueTextSize(0);
 
         //add colors to dataset
-        ArrayList<Integer> integerColors = new ArrayList<>();
-        for(Color color: colors)
+        int[] integerColors = new int[colors.size()];
+        for(ActivityEntry color: colors)
         {
-            integerColors.add(color.toArgb());
+            integerColors[i] = color.getColor();
+            i++;
         }
 
         pieDataSet.setColors(integerColors);
@@ -111,36 +114,64 @@ public class ChartsFragment extends Fragment {
         pieChart.invalidate();
     }
 
-    public ArrayList<Color> getUniqueColors(){
-        ArrayList<Color> colors = new ArrayList<Color>();
-        RealmResults<ActivityEntry> activities = mainActivity.realm.where(ActivityEntry.class).findAll();
-        for (ActivityEntry activity: activities)
+    public ArrayList<ActivityEntry> getUniqueColors(){
+        ArrayList<ActivityEntry> colors = new ArrayList<ActivityEntry>();
+        RealmResults<ActivityEntry> activities = chooseActivity.realm.where(ActivityEntry.class).findAll();
+        ArrayList<ActivityEntry> activities2 = new ArrayList<ActivityEntry>();
+        String choice = analysisActivity.filterSpinner.getSelectedItem().toString();
+
+        if(!choice.equals("All"))
+        {
+            for(ActivityEntry activity: activities)
+            {
+                if(activity.getActivityName().equals(choice));
+                {
+                    activities2.add(activity);
+                }
+            }
+        }
+
+        for (ActivityEntry activity: activities2)
         {
             if(colors.isEmpty())
             {
-                colors.add(activity.getColor());
+                colors.add(activity);
             }
-            for(Color colorX: colors)
+            for(ActivityEntry colorX: colors)
             {
-                if (activity.getColor() != colorX)
+                if (activity.getColor() != colorX.getColor())
                 {
-                    colors.add(activity.getColor());
+                    colors.add(activity);
                 }
             }
         }
         return colors;
     }
 
-    public ArrayList<PieEntry> getYData(ArrayList<Color> colors){
+    public ArrayList<PieEntry> getYData(ArrayList<ActivityEntry> colors){
         ArrayList<PieEntry> yData = new ArrayList<PieEntry>();
-        RealmResults<ActivityEntry> activities = mainActivity.realm.where(ActivityEntry.class).findAll();
+        RealmResults<ActivityEntry> activities = chooseActivity.realm.where(ActivityEntry.class).findAll();
         int sum = 0;
         int i = 0;
-        for(Color color: colors)
+        ArrayList<ActivityEntry> activities2 = new ArrayList<ActivityEntry>();
+        String choice = analysisActivity.filterSpinner.getSelectedItem().toString();
+
+        if(!choice.equals("All"))
         {
-            for (ActivityEntry activity: activities)
+            for(ActivityEntry activity: activities)
             {
-                if (activity.getColor() == color)
+                if(activity.getActivityName().equals(choice));
+                {
+                    activities2.add(activity);
+                }
+            }
+        }
+
+        for(ActivityEntry color: colors)
+        {
+            for (ActivityEntry activity: activities2)
+            {
+                if (activity.getColor() == color.getColor())
                 {
                     sum ++;
                 }
