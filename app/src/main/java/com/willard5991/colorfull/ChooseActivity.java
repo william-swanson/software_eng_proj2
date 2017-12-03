@@ -136,7 +136,6 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
                 int m = c.get(Calendar.MONTH);
                 int d = c.get(Calendar.DAY_OF_MONTH);
                 int y = c.get(Calendar.YEAR);
-                Date today = new Date(d, m, y);
 
                 myApp.realm.beginTransaction();
                 ActivityEntry newActivity = myApp.realm.createObject(ActivityEntry.class);
