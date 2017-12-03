@@ -113,7 +113,6 @@ public class ChartsFragment extends Fragment {
         //pieChart.setEntryLabelTextSize(20);
         //More options just check out the documentation!
 
-        //JENNA COMMENT
         addDataSet();
 
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {

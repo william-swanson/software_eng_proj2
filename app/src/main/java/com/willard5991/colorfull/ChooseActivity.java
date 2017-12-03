@@ -164,8 +164,8 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
                 newActivity.setYear(y);
                 realm.commitTransaction();
 
-                realm.close();
-                realm.close(); //not sure why, but seems to only run with close() twice
+                //realm.close();
+                //realm.close(); //not sure why, but seems to only run with close() twice
                 Intent intent = new Intent(getBaseContext(),AnalysisActivity.class);
                 startActivity(intent);
             }
