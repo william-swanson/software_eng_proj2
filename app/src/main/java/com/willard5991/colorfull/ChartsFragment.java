@@ -38,54 +38,6 @@ public class ChartsFragment extends Fragment {
     public ChartsFragment() {
         // Required empty public constructor
     }
-    /*
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        analysisActivity = (AnalysisActivity) this.getActivity();
-
-
-        pieChart = (PieChart) getActivity().findViewById(R.id.pie_chart);
-        pieChart = new PieChart();
-//        Description des = new Description();
-//        des.setText("Activities");
-        //pieChart.setDescription(des);
-        pieChart.getDescription().setEnabled(false);
-        pieChart.setRotationEnabled(true);
-        pieChart.setUsePercentValues(true);
-        //pieChart.setHoleColor(Color.BLUE);
-        pieChart.setCenterTextColor(Color.BLACK);
-        pieChart.setHoleRadius(25f);
-        pieChart.setTransparentCircleAlpha(0);
-        pieChart.setCenterText("Colors");
-        pieChart.setCenterTextSize(10);
-        //pieChart.setDrawEntryLabels(true);
-        //pieChart.setEntryLabelTextSize(20);
-        //More options just check out the documentation!
-
-        //JENNA COMMENT
-        addDataSet();
-
-        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, Highlight h) {
-                int pos1 = e.toString().indexOf("(sum): ");
-                String sales = e.toString().substring(pos1 + 7);
-
-                Toast.makeText(getActivity(), "Employee ", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-        });
-
-
-
-    }
-    */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,10 +48,6 @@ public class ChartsFragment extends Fragment {
 
 
         pieChart = (PieChart) view.findViewById(R.id.pie_chart);
-        //pieChart = new PieChart();
-//        Description des = new Description();
-//        des.setText("Activities");
-        //pieChart.setDescription(des);
         pieChart.getDescription().setEnabled(false);
         pieChart.setRotationEnabled(true);
         pieChart.setUsePercentValues(true);
@@ -111,11 +59,9 @@ public class ChartsFragment extends Fragment {
         pieChart.setCenterTextSize(10);
         //pieChart.setDrawEntryLabels(true);
         //pieChart.setEntryLabelTextSize(20);
-        //More options just check out the documentation!
 
-        //JENNA COMMENT
         addDataSet();
-
+    /*
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
@@ -130,6 +76,7 @@ public class ChartsFragment extends Fragment {
 
             }
         });
+        */
         return view;
     }
 
@@ -137,7 +84,6 @@ public class ChartsFragment extends Fragment {
     private void addDataSet() {
         ArrayList<ActivityEntry> colors = getUniqueColors();
         ArrayList<PieEntry> yEntrys = getYData(colors);
-        int i = 0;
 
         //create the data set
         PieDataSet pieDataSet = new PieDataSet(yEntrys, "Employee Sales");
@@ -145,12 +91,10 @@ public class ChartsFragment extends Fragment {
         pieDataSet.setValueTextSize(0);
 
         //add colors to dataset
-        int[] integerColors = new int[colors.size()];
+        ArrayList<Integer> integerColors = new ArrayList<Integer>();
         for(ActivityEntry color: colors)
         {
-            integerColors[i] = color.getColor();
-            Log.i("COLOR123", Integer.toString(color.getColor()));
-            i++;
+            integerColors.add(color.getColor());
         }
 
         pieDataSet.setColors(integerColors);

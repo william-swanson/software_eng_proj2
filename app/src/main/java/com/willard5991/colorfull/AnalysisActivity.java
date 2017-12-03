@@ -72,6 +72,7 @@ public class AnalysisActivity extends AppCompatActivity {
         ArrayAdapter<String> stringAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayList);
         stringAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         filterSpinner.setAdapter(stringAdapter);
+        filterSpinner.setSelection(0);
 
         filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
