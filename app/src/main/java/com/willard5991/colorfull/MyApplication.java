@@ -15,16 +15,15 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder()
                 .deleteRealmIfMigrationNeeded()
                 .name("myrealm.realm")
                 .build();
-        if(Realm.getLocalInstanceCount(config)== 0) {
-            Realm.init(this);
-            Realm.setDefaultConfiguration(config);
-            realm = realm.getDefaultInstance();
-        }
+        Realm.setDefaultConfiguration(config);
+        realm = realm.getDefaultInstance();
     }
+
 
     @Override
     public void onTerminate(){
