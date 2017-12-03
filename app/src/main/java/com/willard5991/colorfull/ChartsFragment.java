@@ -46,7 +46,6 @@ public class ChartsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_charts, container, false);
         analysisActivity = (AnalysisActivity) this.getActivity();
 
-
         pieChart = (PieChart) view.findViewById(R.id.pie_chart);
         pieChart.getDescription().setEnabled(false);
         pieChart.setRotationEnabled(true);
@@ -107,7 +106,7 @@ public class ChartsFragment extends Fragment {
 
     public ArrayList<ActivityEntry> getUniqueColors(){
         ArrayList<ActivityEntry> colors = new ArrayList<ActivityEntry>();
-        RealmResults<ActivityEntry> activities = analysisActivity.realm.where(ActivityEntry.class).findAll();
+        RealmResults<ActivityEntry> activities = analysisActivity.myApp.realm.where(ActivityEntry.class).findAll();
         ArrayList<ActivityEntry> activities2 = new ArrayList<ActivityEntry>();
         String choice = analysisActivity.filterSpinner.getSelectedItem().toString();
 
@@ -139,7 +138,7 @@ public class ChartsFragment extends Fragment {
 
     public ArrayList<PieEntry> getYData(ArrayList<ActivityEntry> colors){
         ArrayList<PieEntry> yData = new ArrayList<PieEntry>();
-        RealmResults<ActivityEntry> activities = analysisActivity.realm.where(ActivityEntry.class).findAll();
+        RealmResults<ActivityEntry> activities = analysisActivity.myApp.realm.where(ActivityEntry.class).findAll();
         int sum = 0;
         int i = 0;
         ArrayList<ActivityEntry> activities2 = new ArrayList<ActivityEntry>();
