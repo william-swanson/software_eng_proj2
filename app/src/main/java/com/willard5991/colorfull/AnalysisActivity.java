@@ -13,12 +13,14 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class AnalysisActivity extends AppCompatActivity {
 
-    private Spinner filterSpinner;
+    public Spinner filterSpinner;
     private MainActivity mainActivity;
+    public Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class AnalysisActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        realm = realm.getDefaultInstance();
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.addTab(tabLayout.newTab().setText("Calendar"));
@@ -84,20 +88,25 @@ public class AnalysisActivity extends AppCompatActivity {
 
     public ArrayList<String> getUniqueActivities(){
         ArrayList<String> activityNames = new ArrayList<String>();
-        RealmResults<ActivityEntry> activities = mainActivity.realm.where(ActivityEntry.class).findAll();
+        RealmResults<ActivityEntry> activities = realm.where(ActivityEntry.class).findAll();
         activityNames.add("All");
+
         for (ActivityEntry activity: activities)
         {
-            for(String activityNameX: activityNames)
-            {
-                if (!activity.getActivityName().equals(activityNameX))
-                {
-                    activityNames.add(activity.getActivityName());
-                }
+            if(!activityNames.contains(activity.getActivityName())) {
+
+                activityNames.add(activity.getActivityName());
             }
+
+
         }
+
         return activityNames;
     }
-
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        realm.close();
+    }
 
 }

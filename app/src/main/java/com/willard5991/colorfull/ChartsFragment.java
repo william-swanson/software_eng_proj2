@@ -4,12 +4,15 @@ package com.willard5991.colorfull;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
@@ -28,24 +31,27 @@ import io.realm.RealmResults;
  */
 public class ChartsFragment extends Fragment {
 
-    private MainActivity mainActivity;
-
+    private AnalysisActivity analysisActivity;
+    private TextView testingView;
     private PieChart pieChart;
 
     public ChartsFragment() {
         // Required empty public constructor
     }
-
-
+    /*
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        pieChart = (PieChart) view.findViewById(R.id.calendar_view);
+        analysisActivity = (AnalysisActivity) this.getActivity();
 
 
+        pieChart = (PieChart) getActivity().findViewById(R.id.pie_chart);
+        pieChart = new PieChart();
+//        Description des = new Description();
+//        des.setText("Activities");
+        //pieChart.setDescription(des);
+        pieChart.getDescription().setEnabled(false);
         pieChart.setRotationEnabled(true);
         pieChart.setUsePercentValues(true);
         //pieChart.setHoleColor(Color.BLUE);
@@ -58,6 +64,7 @@ public class ChartsFragment extends Fragment {
         //pieChart.setEntryLabelTextSize(20);
         //More options just check out the documentation!
 
+        //JENNA COMMENT
         addDataSet();
 
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
@@ -75,12 +82,62 @@ public class ChartsFragment extends Fragment {
             }
         });
 
+
+
+    }
+    */
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_charts, container, false);
+        analysisActivity = (AnalysisActivity) this.getActivity();
+
+
+        pieChart = (PieChart) view.findViewById(R.id.pie_chart);
+        //pieChart = new PieChart();
+//        Description des = new Description();
+//        des.setText("Activities");
+        //pieChart.setDescription(des);
+        pieChart.getDescription().setEnabled(false);
+        pieChart.setRotationEnabled(true);
+        pieChart.setUsePercentValues(true);
+        //pieChart.setHoleColor(Color.BLUE);
+        pieChart.setCenterTextColor(Color.BLACK);
+        pieChart.setHoleRadius(25f);
+        pieChart.setTransparentCircleAlpha(0);
+        pieChart.setCenterText("Colors");
+        pieChart.setCenterTextSize(10);
+        //pieChart.setDrawEntryLabels(true);
+        //pieChart.setEntryLabelTextSize(20);
+        //More options just check out the documentation!
+
+        //JENNA COMMENT
+        addDataSet();
+
+        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                int pos1 = e.toString().indexOf("(sum): ");
+                String sales = e.toString().substring(pos1 + 7);
+
+                Toast.makeText(getActivity(), "Employee ", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
         return view;
     }
 
+
     private void addDataSet() {
-        ArrayList<Color> colors = getUniqueColors();
+        ArrayList<ActivityEntry> colors = getUniqueColors();
         ArrayList<PieEntry> yEntrys = getYData(colors);
+        int i = 0;
 
         //create the data set
         PieDataSet pieDataSet = new PieDataSet(yEntrys, "Employee Sales");
@@ -88,10 +145,12 @@ public class ChartsFragment extends Fragment {
         pieDataSet.setValueTextSize(0);
 
         //add colors to dataset
-        ArrayList<Integer> integerColors = new ArrayList<>();
-        for(Color color: colors)
+        int[] integerColors = new int[colors.size()];
+        for(ActivityEntry color: colors)
         {
-            integerColors.add(color.toArgb());
+            integerColors[i] = color.getColor();
+            Log.i("COLOR123", Integer.toString(color.getColor()));
+            i++;
         }
 
         pieDataSet.setColors(integerColors);
@@ -102,36 +161,62 @@ public class ChartsFragment extends Fragment {
         pieChart.invalidate();
     }
 
-    public ArrayList<Color> getUniqueColors(){
-        ArrayList<Color> colors = new ArrayList<Color>();
-        RealmResults<ActivityEntry> activities = mainActivity.realm.where(ActivityEntry.class).findAll();
-        for (ActivityEntry activity: activities)
+    public ArrayList<ActivityEntry> getUniqueColors(){
+        ArrayList<ActivityEntry> colors = new ArrayList<ActivityEntry>();
+        RealmResults<ActivityEntry> activities = analysisActivity.realm.where(ActivityEntry.class).findAll();
+        ArrayList<ActivityEntry> activities2 = new ArrayList<ActivityEntry>();
+        String choice = analysisActivity.filterSpinner.getSelectedItem().toString();
+
+        if(!choice.equals("All"))
+        {
+            for(ActivityEntry activity: activities)
+            {
+                if(activity.getActivityName().equals(choice));
+                {
+                    activities2.add(activity);
+                }
+            }
+        }
+
+        for (ActivityEntry activity: activities2)
         {
             if(colors.isEmpty())
             {
-                colors.add(activity.getColor());
+                colors.add(activity);
             }
-            for(Color colorX: colors)
+            if(!colors.contains(activity.getColor()))
             {
-                if (activity.getColor() != colorX)
-                {
-                    colors.add(activity.getColor());
-                }
+                colors.add(activity);
+
             }
         }
         return colors;
     }
 
-    public ArrayList<PieEntry> getYData(ArrayList<Color> colors){
+    public ArrayList<PieEntry> getYData(ArrayList<ActivityEntry> colors){
         ArrayList<PieEntry> yData = new ArrayList<PieEntry>();
-        RealmResults<ActivityEntry> activities = mainActivity.realm.where(ActivityEntry.class).findAll();
+        RealmResults<ActivityEntry> activities = analysisActivity.realm.where(ActivityEntry.class).findAll();
         int sum = 0;
         int i = 0;
-        for(Color color: colors)
+        ArrayList<ActivityEntry> activities2 = new ArrayList<ActivityEntry>();
+        String choice = analysisActivity.filterSpinner.getSelectedItem().toString();
+
+        if(!choice.equals("All"))
         {
-            for (ActivityEntry activity: activities)
+            for(ActivityEntry activity: activities)
             {
-                if (activity.getColor() == color)
+                if(activity.getActivityName().equals(choice));
+                {
+                    activities2.add(activity);
+                }
+            }
+        }
+
+        for(ActivityEntry color: colors)
+        {
+            for (ActivityEntry activity: activities2)
+            {
+                if (activity.getColor() == color.getColor())
                 {
                     sum ++;
                 }

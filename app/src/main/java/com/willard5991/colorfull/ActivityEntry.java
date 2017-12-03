@@ -1,9 +1,6 @@
 package com.willard5991.colorfull;
 
-import android.graphics.Color;
-
-import java.sql.Time;
-import java.util.Date;
+import io.realm.RealmObject;
 
 import io.realm.RealmModel;
 
@@ -11,43 +8,58 @@ import io.realm.RealmModel;
  * Created by willard5991 on 11/15/2017.
  */
 
-public class ActivityEntry implements RealmModel {
+public class ActivityEntry extends RealmObject{
 
-    private int id;
-    private Date date;
-    private Time time;
+    private String id;
+    //private Date date;
     private String activityName;
-    private Color color;
+    private int color;
+    private int day;
+    private int month;
+    private int year;
+
 
     public ActivityEntry(){
-        this.date = new Date();
-        this.time = new Time(0); //no empty constructor, apparently
+        this.day = 1;
+        this.month = 0;
+        this.year = 2017;
         this.activityName = new String();
-        this.color = new Color();
+        this.color = -1; //set to white
     }
 
-    public ActivityEntry(Date d, Time t, String a, Color c){
-        this.date = d;
-        this.time = t;
-        this.activityName = a;
+    public ActivityEntry(int d, int m, int y, String n, int c){
+        this.day = d;
+        this.month = m;
+        this.year = y;
+        this.activityName = n;
         this.color = c;
     }
 
-    public int getId() { return this.id; }
-    public void setId(int i) { this.id = i; }
+    public String getId() { return this.id; }
+    public void setId(String i) { this.id = i; }
 
-    public Date getDate(){
-        return this.date;
-    }
-    public void setDate(Date d){
-        this.date = d;
+    public int getDay() {
+        return day;
     }
 
-    public Time getTime(){
-        return this.time;
+    public void setDay(int day) {
+        this.day = day;
     }
-    public void setTime(Time t){
-        this.time = t;
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public String getActivityName(){
@@ -57,11 +69,13 @@ public class ActivityEntry implements RealmModel {
         this.activityName = a;
     }
 
-    public Color getColor(){
+    public int getColor(){
         return this.color;
     }
-    public void setColor(Color c){
+    public void setColor(int c){
         this.color = c;
     }
+
+
 
 }
