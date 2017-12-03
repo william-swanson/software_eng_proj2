@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class ActivityRecyclerViewAdapter extends RecyclerView.Adapter<ActivityRecyclerViewAdapter.MyViewHolder> {
 
-    private ArrayList<ActivityEntry> mData = new ArrayList<ActivityEntry>();
+    private ArrayList<ActivityName> mData = new ArrayList<ActivityName>();
     private int backgroundColor;
 
     private LayoutInflater mInflater;
@@ -43,7 +43,7 @@ public class ActivityRecyclerViewAdapter extends RecyclerView.Adapter<ActivityRe
         }
     }
 
-    public ActivityRecyclerViewAdapter(ArrayList<ActivityEntry> data, int bc) {
+    public ActivityRecyclerViewAdapter(ArrayList<ActivityName> data, int bc) {
         this.mData = data;
         this.backgroundColor = bc;
     }
@@ -64,14 +64,14 @@ public class ActivityRecyclerViewAdapter extends RecyclerView.Adapter<ActivityRe
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        ActivityEntry entry = mData.get(position);
-        String name = entry.getActivityName();
+        ActivityName entry = mData.get(position);
+        String name = entry.getName();
         holder.activityButton.setText(name);
 
     }
 
     // convenience method for getting data at click position
-    public ActivityEntry getItem(int id) {
+    public ActivityName getItem(int id) {
         return mData.get(id);
     }
 

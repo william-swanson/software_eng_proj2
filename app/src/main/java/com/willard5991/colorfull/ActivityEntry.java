@@ -10,42 +10,56 @@ import io.realm.RealmModel;
 
 public class ActivityEntry extends RealmObject{
 
-    private int id;
-    private Date date;
-    private long time;
+    private String id;
+    //private Date date;
     private String activityName;
     private int color;
+    private int day;
+    private int month;
+    private int year;
 
 
     public ActivityEntry(){
-        this.date = new Date();
-        this.time = 0;
+        this.day = 1;
+        this.month = 0;
+        this.year = 2017;
         this.activityName = new String();
         this.color = -1; //set to white
     }
 
-    public ActivityEntry(Date d, long t, String n, int c){
-        this.date = d;
-        this.time = t;
+    public ActivityEntry(int d, int m, int y, String n, int c){
+        this.day = d;
+        this.month = m;
+        this.year = y;
         this.activityName = n;
         this.color = c;
     }
 
-    public int getId() { return this.id; }
-    public void setId(int i) { this.id = i; }
+    public String getId() { return this.id; }
+    public void setId(String i) { this.id = i; }
 
-    public Date getDate(){
-        return this.date;
-    }
-    public void setDate(Date d){
-        this.date = d;
+    public int getDay() {
+        return day;
     }
 
-    public long getTime(){
-        return this.time;
+    public void setDay(int day) {
+        this.day = day;
     }
-    public void setTime(long t){
-        this.time = t;
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public String getActivityName(){
