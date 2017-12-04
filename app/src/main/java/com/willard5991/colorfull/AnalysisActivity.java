@@ -96,10 +96,7 @@ public class AnalysisActivity extends AppCompatActivity {
         for (ActivityEntry activity: activities)
         {
             if(!activityNames.contains(activity.getActivityName())) {
-<<<<<<< HEAD
-=======
                 Log.i("TAG",activity.getActivityName());
->>>>>>> d93d0fa20af61b06339a8a5fba76997fe9085a1a
                 activityNames.add(activity.getActivityName());
             }
         }

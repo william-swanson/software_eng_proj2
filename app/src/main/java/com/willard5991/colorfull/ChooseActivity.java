@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import java.sql.Time;
@@ -40,6 +41,7 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
     private ArrayList<ActivityName> data;
     private ActivityName activitySelected;
     public MyApplication myApp;
+    private ImageButton xOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +104,15 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
 //        }
 
         submitButton = (Button) findViewById(R.id.submit_button);
+        xOut = (ImageButton) findViewById(R.id.x_button);
+
+        xOut.setOnClickListener (new View.OnClickListener(){
+            @Override
+            public void onClick (View view) {
+                Intent intent = new Intent(view.getContext(), AnalysisActivity.class);
+                startActivity(intent);
+            }
+        });
 
         data = new ArrayList<ActivityName>();
 
