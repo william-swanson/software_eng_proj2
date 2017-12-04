@@ -95,11 +95,8 @@ public class AnalysisActivity extends AppCompatActivity {
         for (ActivityEntry activity: activities)
         {
             if(!activityNames.contains(activity.getActivityName())) {
-
                 activityNames.add(activity.getActivityName());
             }
-
-
         }
 
         return activityNames;

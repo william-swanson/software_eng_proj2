@@ -79,7 +79,6 @@ public class ChartsFragment extends Fragment {
         return view;
     }
 
-
     private void addDataSet() {
         ArrayList<Integer> colors = getUniqueColors();
         ArrayList<PieEntry> yEntrys = getYData(colors);
