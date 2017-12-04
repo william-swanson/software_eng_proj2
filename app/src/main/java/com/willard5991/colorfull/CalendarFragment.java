@@ -52,16 +52,12 @@ public class CalendarFragment extends Fragment implements OnClickListener {
     private static final String dateTemplate = "MMMM yyyy";
     String flag ="abc";
     String date_month_year;
-    //private ActivityEntry activity1;
-    RealmResults<ActivityEntry> allActivities;
     private ArrayList<ActivityEntry> todaysActivities;
     private ArrayList<ActivityEntry> sortedActivities;
 
     public CalendarFragment() {
         // Required empty public constructor
     }
-
-
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -103,11 +99,8 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
-
         });
         sortedActivities = getFilteredItems();
-
-        
 
         /*
         //this is how you add test data
@@ -176,9 +169,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         private ImageView rect2;
         private ImageView rect3;
         private ImageView rect4;
-
-
-
         private TextView num_events_per_day;
         private final HashMap<String, Integer> eventsPerMonthMap;
 
@@ -302,13 +292,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             num_of_day = (TextView) row.findViewById(R.id.num_of_day);
             //num_of_day.setOnClickListener(this);
 
-
-
-
-
-
-
-
             //Spacing issues
             String[] day_color = list.get(position).split("-");
             String theday = day_color[0];
@@ -383,7 +366,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                 rect2BG.setColor(todaysActivities.get(0).getColor());
                 rect3BG.setColor(todaysActivities.get(0).getColor());
                 rect4BG.setColor(todaysActivities.get(0).getColor());
-
             }
             //if function = 2
             else if(numActivities == 2) {
@@ -419,10 +401,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                 rect4BG.setColor(getResources().getColor(R.color.color32));
             }
 
-
-
-
-
             return row;
         }
          public int activitiesPerDay(ArrayList<ActivityEntry> today) {
@@ -432,14 +410,12 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             return numActivities;
          }
 
-
         @Override
         public void onClick(View view){
             date_month_year = (String) view.getTag();
             flag ="Date selected ...";
             //selectedDayMonthYearButton.setText("Selected: " + date_month_year);
             Log.d(TAG, "onClick: " + date_month_year);
-
         }
 
         public int getCurrentDayOfMonth(){
@@ -494,15 +470,12 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                 monthNum = 11;
             }
             return monthNum;
-
         }
-
     }
     public ArrayList<ActivityEntry> getFilteredItems() {
         RealmResults<ActivityEntry> activities = analysisActivity.myApp.realm.where(ActivityEntry.class).findAll();
         ArrayList<ActivityEntry> activities2 = new ArrayList<ActivityEntry>();
         String choice = analysisActivity.filterSpinner.getSelectedItem().toString();
-
 
         if(!choice.equals("All"))
         {
@@ -514,7 +487,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                 if(choice.equals(dummy))
                 {
                     activities2.add(activity);
-
                 }
             }
         }
@@ -526,8 +498,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         adapter.notifyDataSetChanged();
         return activities2;
     }
-
-
     }
 
 
