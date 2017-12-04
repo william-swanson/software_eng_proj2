@@ -15,14 +15,19 @@
     <Spinner
         android:id="@+id/filter_spinner"
         android:layout_width="150dp"
-        android:layout_height="16dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="52dp"
-        android:background="#009A9F"
-        android:popupBackground="#00DE7F"
-
+        android:background="@color/color31"
         tools:layout_editor_absoluteY="83dp" />
 
+    <Spinner
+        android:id="@+id/date_spinner"
+        android:layout_width="150dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="52dp"
+        android:background="@color/color31"
+        tools:layout_editor_absoluteY="83dp" />
 
 </FrameLayout>

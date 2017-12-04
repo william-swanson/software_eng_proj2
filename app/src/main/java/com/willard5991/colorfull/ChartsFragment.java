@@ -38,6 +38,8 @@ public class ChartsFragment extends Fragment {
     private TextView testingView;
     private PieChart pieChart;
     private Spinner filterSpinner;
+    private Spinner dateSpinner;
+    private PieData pieData;
 
     public ChartsFragment() {
         // Required empty public constructor
@@ -54,14 +56,9 @@ public class ChartsFragment extends Fragment {
         pieChart.getDescription().setEnabled(false);
         pieChart.setRotationEnabled(true);
         pieChart.setUsePercentValues(true);
-        //pieChart.setHoleColor(Color.BLUE);
         pieChart.setCenterTextColor(Color.BLACK);
-        pieChart.setHoleRadius(25f);
+        pieChart.setHoleRadius(0f);
         pieChart.setTransparentCircleAlpha(0);
-        pieChart.setCenterText("Colors");
-        pieChart.setCenterTextSize(10);
-        //pieChart.setDrawEntryLabels(true);
-        //pieChart.setEntryLabelTextSize(20);
 
         filterSpinner = (Spinner) view.findViewById(R.id.filter_spinner);
 
@@ -84,15 +81,38 @@ public class ChartsFragment extends Fragment {
             }
         });
 
-        addDataSet();
-    /*
+        dateSpinner = (Spinner) view.findViewById(R.id.date_spinner);
+        ArrayList<String> dateList = new ArrayList<String>();
+        dateList.add("All");
+        dateList.add("Day");
+        dateList.add("Week");
+        dateList.add("Month");
+        dateList.add("Year");
+
+        ArrayAdapter<String> dateAdapter = new ArrayAdapter<String>(analysisActivity.getApplicationContext(), android.R.layout.simple_spinner_item, dateList);
+        stringAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        filterSpinner.setAdapter(dateAdapter);
+        filterSpinner.setSelection(0);
+
+        dateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                addDataSet();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
                 int pos1 = e.toString().indexOf("(sum): ");
-                String sales = e.toString().substring(pos1 + 7);
+                String total = e.toString().substring(pos1 + 7);
 
-                Toast.makeText(getActivity(), "Employee ", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Total: " + total, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -100,7 +120,7 @@ public class ChartsFragment extends Fragment {
 
             }
         });
-        */
+
 
         return view;
     }
@@ -111,15 +131,14 @@ public class ChartsFragment extends Fragment {
 
         //create the data set
         PieDataSet pieDataSet = new PieDataSet(yEntrys, "Colors");
-        pieDataSet.notifyDataSetChanged();
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(0);
         pieDataSet.setColors(colors);
 
         //create pie data object
-        PieData pieData = new PieData(pieDataSet);
-        pieData.notifyDataChanged();
+        pieData = new PieData(pieDataSet);
         pieChart.setData(pieData);
+        pieData.notifyDataChanged();
         pieChart.notifyDataSetChanged();
         pieChart.invalidate();
     }
