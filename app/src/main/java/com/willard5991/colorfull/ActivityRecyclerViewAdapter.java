@@ -45,14 +45,18 @@ public class ActivityRecyclerViewAdapter extends RecyclerView.Adapter<ActivityRe
         @Override
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
-            if (selected.get(getAdapterPosition(), false)) {
-                selected.delete(getAdapterPosition());
+            int selectedPos = getAdapterPosition();
+            if(activityButton.getText().equals("Add Activity +")){
+                selectedPos = mData.size();
+            }
+            if (selected.get(selectedPos, false)) {
+                selected.delete(selectedPos);
                 activityButton.setSelected(false);
             }
             else {
-                selected.put(getAdapterPosition(), true);
+                selected.put(selectedPos, true);
                 activityButton.setSelected(true);
-                selectedItem = getAdapterPosition();
+                selectedItem = selectedPos;
             }
             notifyDataSetChanged();
 //            if(view.isSelected()){

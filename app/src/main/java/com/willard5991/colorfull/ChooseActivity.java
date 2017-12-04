@@ -52,16 +52,16 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
 
         myApp = (MyApplication) this.getApplication();
 
-        //Use if we need to clear Realm
-        //realm.beginTransaction();
-        //realm.deleteAll();
-        //realm.commitTransaction();
-
-//        if(realm != null){
-//            realm.close();
-//            realm.deleteRealm(realm.getConfiguration());
+//        Use if we need to clear Realm
+//        myApp.realm.beginTransaction();
+//        myApp.realm.deleteAll();
+//        myApp.realm.commitTransaction();
+//
+//        if(myApp.realm != null){
+//            myApp.realm.close();
+//            myApp.realm.deleteRealm(myApp.realm.getConfiguration());
 //        }
-//        realm = realm.getDefaultInstance();
+//        myApp.realm = myApp.realm.getDefaultInstance();
 
         BoolFlag bool = myApp.realm.where(BoolFlag.class).findFirst();
         if(bool == null){
@@ -183,6 +183,8 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
                     newActivity.setYear(y);
                     myApp.realm.commitTransaction();
 
+                    Log.i("TAG",activitySelected.getName());
+
                     Intent intent = new Intent(getBaseContext(), AnalysisActivity.class);
                     startActivity(intent);
                 }
@@ -194,7 +196,6 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
     public void onItemClick(View view, int position) {
         Log.i("TAG", "You clicked number " + adapter.getItem(position) + ", which is at cell position " + position);
         activitySelected = data.get(position);
-        Log.i("TAG","Color selected: " + activitySelected.getName());
 
         //If the user selects the "Add Activity +" option
         if(position == 0) {
@@ -214,6 +215,7 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
                     myApp.realm.commitTransaction();
                     data.add(newActivity);
                     adapter.notifyDataSetChanged();
+                    activitySelected = data.get(data.size()-1);
                 }
             });
 
@@ -225,6 +227,8 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
 
             alert.show();
         }
+
+        Log.i("TAG","Color selected: " + activitySelected.getName());
     }
 
     private void getAvailableActivities(){
