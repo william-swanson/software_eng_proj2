@@ -123,7 +123,11 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
         Log.i("TAG", "Color selected: " + Integer.toString(colorValue));
 
         if(colorValue == -1){
+            Log.i("TAG","changing background image");
             submitButton.setBackgroundColor(Color.parseColor("#e6e7e8"));
+        }
+        if(colorValue == -16777216){
+            xOut.setBackgroundResource(R.drawable.exit_icon);
         }
         CoordinatorLayout l = (CoordinatorLayout) findViewById(R.id.back);
         l.setBackgroundColor(colorValue);
