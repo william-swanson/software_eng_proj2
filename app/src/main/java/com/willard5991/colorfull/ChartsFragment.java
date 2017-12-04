@@ -85,7 +85,7 @@ public class ChartsFragment extends Fragment {
         ArrayList<PieEntry> yEntrys = getYData(colors);
 
         //create the data set
-        PieDataSet pieDataSet = new PieDataSet(yEntrys, "Employee Sales");
+        PieDataSet pieDataSet = new PieDataSet(yEntrys, "Colors");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(0);
 
@@ -120,6 +120,13 @@ public class ChartsFragment extends Fragment {
                 }
             }
         }
+        else
+        {
+            for(ActivityEntry activity: activities)
+            {
+                activities2.add(activity);
+            }
+        }
 
         for (ActivityEntry activity: activities2)
         {
@@ -152,6 +159,13 @@ public class ChartsFragment extends Fragment {
                 {
                     activities2.add(activity);
                 }
+            }
+        }
+        else
+        {
+            for(ActivityEntry activity: activities)
+            {
+                activities2.add(activity);
             }
         }
 
