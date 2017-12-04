@@ -1,9 +1,14 @@
 package com.willard5991.colorfull;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,6 +49,15 @@ public class ChartsFragment extends Fragment {
     private ImageView next;
     private TextView current;
 
+    private final BroadcastReceiver mYourBroadcastReceiver = new BroadcastReceiver()
+    {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            addDataSet();
+        }
+    };
+
     public ChartsFragment() {
         // Required empty public constructor
     }
@@ -76,9 +90,13 @@ public class ChartsFragment extends Fragment {
         dateSpinner.setAdapter(dateAdapter);
         dateSpinner.setSelection(0);
 
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mYourBroadcastReceiver,
+                new IntentFilter("RefreshSpinner"));
+
         dateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                Log.v("hi", "chart fragment");
                 addDataSet();
             }
 
@@ -88,17 +106,18 @@ public class ChartsFragment extends Fragment {
             }
         });
 
-        analysisActivity.filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                addDataSet();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+//        analysisActivity.filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                Log.v("hi", "chart fragment");
+//                addDataSet();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
 
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override

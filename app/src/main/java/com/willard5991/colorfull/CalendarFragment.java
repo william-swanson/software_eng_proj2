@@ -1,12 +1,16 @@
 package com.willard5991.colorfull;
 
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,6 +59,15 @@ public class CalendarFragment extends Fragment implements OnClickListener {
     private ArrayList<ActivityEntry> todaysActivities;
     private ArrayList<ActivityEntry> sortedActivities;
 
+    private final BroadcastReceiver mYourBroadcastReceiver = new BroadcastReceiver()
+    {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            sortedActivities = getFilteredItems();
+        }
+    };
+
     public CalendarFragment() {
         // Required empty public constructor
     }
@@ -86,17 +99,22 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         calendarView.setAdapter(adapter);
 
         analysisActivity = (AnalysisActivity) this.getActivity();
-        analysisActivity.filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                sortedActivities = getFilteredItems();
-            }
+//        analysisActivity.filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                Log.v("hi", "calendar fragment");
+//                sortedActivities = getFilteredItems();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mYourBroadcastReceiver,
+                new IntentFilter("RefreshSpinner"));
 
-            }
-        });
         sortedActivities = getFilteredItems();
 
         /*
