@@ -81,8 +81,9 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
             ActivityName addActivity = realm.createObject(ActivityName.class);
             addActivity.setName("Add Activity +");
             /*
-            ActivityEntry workedOut = realm.createObject(ActivityEntry.class);
-            workedOut.setActivityName("Worked Out");
+            ActivityName workedOut = realm.createObject(ActivityName.class);
+            workedOut.setName("Worked Out");
+
             ActivityEntry running = realm.createObject(ActivityEntry.class);
             running.setActivityName("Running");
             ActivityEntry ateDinner = realm.createObject(ActivityEntry.class);
@@ -164,8 +165,8 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
                 newActivity.setYear(y);
                 realm.commitTransaction();
 
-                //realm.close();
-                //realm.close(); //not sure why, but seems to only run with close() twice
+                realm.close();
+                realm.close(); //not sure why, but seems to only run with close() twice
                 Intent intent = new Intent(getBaseContext(),AnalysisActivity.class);
                 startActivity(intent);
             }
