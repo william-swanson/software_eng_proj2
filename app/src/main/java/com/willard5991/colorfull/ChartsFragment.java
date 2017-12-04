@@ -35,7 +35,6 @@ import io.realm.RealmResults;
 public class ChartsFragment extends Fragment {
 
     private AnalysisActivity analysisActivity;
-    private TextView testingView;
     private PieChart pieChart;
     private Spinner dateSpinner;
     private PieData pieData;
@@ -62,7 +61,6 @@ public class ChartsFragment extends Fragment {
         dateSpinner = (Spinner) view.findViewById(R.id.date_spinner);
         ArrayList<String> dateList = new ArrayList<String>();
         dateList.add("All");
-        dateList.add("Day");
         dateList.add("Week");
         dateList.add("Month");
         dateList.add("Year");
