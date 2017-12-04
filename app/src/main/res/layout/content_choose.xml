@@ -12,10 +12,10 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/actRView"
         android:layout_width="match_parent"
-        android:layout_height="515dp"
+        android:layout_height="507dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="41dp"
         android:scrollbars="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -27,9 +27,9 @@
         android:layout_height="25dp"
         android:layout_margin="10dp"
         android:layout_marginTop="8dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:gravity="left"
-        app:srcCompat="@drawable/exit_icon" />
+        android:background="@drawable/exit_icon_black"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+        <!--app:srcCompat="@drawable/exit_icon" />-->
 
 </android.support.constraint.ConstraintLayout>
