@@ -4,12 +4,14 @@ package com.willard5991.colorfull;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +40,9 @@ public class ChartsFragment extends Fragment {
     private PieChart pieChart;
     private Spinner dateSpinner;
     private PieData pieData;
+    private ImageView prev;
+    private ImageView next;
+    private TextView current;
 
     public ChartsFragment() {
         // Required empty public constructor
@@ -82,6 +87,25 @@ public class ChartsFragment extends Fragment {
             }
         });
 
+        analysisActivity.filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        prev = (ImageView) view.findViewById(R.id.prevMonth);
+
+
+        current = (TextView) view.findViewById(R.id.currentMonth);
+        current.setText(dateSpinner.getSelectedItem().toString());
+
+        next = (ImageView) view.findViewById(R.id.nextMonth);
 
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -101,6 +125,28 @@ public class ChartsFragment extends Fragment {
 
         return view;
     }
+
+//    @Override
+//    public void onClick(View v){
+//        if (v == prev){
+//            if (month <= 1){
+//                month = 12;
+//                year--;
+//            }
+//            else
+//                month--;
+//            setGridCellAdapterToDate(month, year);
+//        }
+//        if (v == next){
+//            if (month > 11){
+//                month = 1;
+//                year++;
+//            }
+//            else
+//                month++;
+//            setGridCellAdapterToDate(month, year);
+//        }
+//    }
 
     private void addDataSet() {
         ArrayList<Integer> colors = getUniqueColors();
@@ -130,7 +176,7 @@ public class ChartsFragment extends Fragment {
         {
             for(ActivityEntry activity: activities)
             {
-                if(activity.getActivityName().equals(choice));
+                if(activity.getActivityName().equals(choice))
                 {
                     activities2.add(activity);
                 }
@@ -168,7 +214,7 @@ public class ChartsFragment extends Fragment {
         {
             for(ActivityEntry activity: activities)
             {
-                if(activity.getActivityName().equals(choice));
+                if(activity.getActivityName().equals(choice))
                 {
                     activities2.add(activity);
                 }

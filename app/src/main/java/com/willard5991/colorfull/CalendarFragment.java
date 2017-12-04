@@ -142,7 +142,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                 month++;
             setGridCellAdapterToDate(month, year);
         }
-
     }
 
     public class GridCellAdapter extends BaseAdapter implements OnClickListener {
