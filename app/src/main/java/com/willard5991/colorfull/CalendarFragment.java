@@ -92,7 +92,21 @@ public class CalendarFragment extends Fragment implements OnClickListener {
 
         analysisActivity = (AnalysisActivity) this.getActivity();
         //allActivities = analysisActivity.myApp.realm.where(ActivityEntry.class).findAll();
+        analysisActivity.filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                sortedActivities = getFilteredItems();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+
+        });
         sortedActivities = getFilteredItems();
+
         
 
         /*
@@ -490,13 +504,18 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         ArrayList<ActivityEntry> activities2 = new ArrayList<ActivityEntry>();
         String choice = analysisActivity.filterSpinner.getSelectedItem().toString();
 
+
         if(!choice.equals("All"))
         {
             for(ActivityEntry activity: activities)
             {
-                if(activity.getActivityName().equals(choice));
+                String dummy = new String(activity.getActivityName());
+                Log.i("Choice", choice);
+                Log.i("Act name", activity.getActivityName());
+                if(choice.equals(dummy))
                 {
                     activities2.add(activity);
+
                 }
             }
         }
@@ -504,6 +523,8 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         {
             activities2.addAll(activities);
         }
+        Log.i("Filtered activities size", Integer.toString(activities2.size()));
+        adapter.notifyDataSetChanged();
         return activities2;
     }
 
