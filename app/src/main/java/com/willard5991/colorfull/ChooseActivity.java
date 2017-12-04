@@ -52,16 +52,16 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
 
         myApp = (MyApplication) this.getApplication();
 
-        //Use if we need to clear Realm
-        //realm.beginTransaction();
-        //realm.deleteAll();
-        //realm.commitTransaction();
-
-//        if(realm != null){
-//            realm.close();
-//            realm.deleteRealm(realm.getConfiguration());
+//        Use if we need to clear Realm
+//        myApp.realm.beginTransaction();
+//        myApp.realm.deleteAll();
+//        myApp.realm.commitTransaction();
+//
+//        if(myApp.realm != null){
+//            myApp.realm.close();
+//            myApp.realm.deleteRealm(myApp.realm.getConfiguration());
 //        }
-//        realm = realm.getDefaultInstance();
+//        myApp.realm = myApp.realm.getDefaultInstance();
 
         BoolFlag bool = myApp.realm.where(BoolFlag.class).findFirst();
         if(bool == null){
@@ -123,7 +123,11 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
         Log.i("TAG", "Color selected: " + Integer.toString(colorValue));
 
         if(colorValue == -1){
+            Log.i("TAG","changing background image");
             submitButton.setBackgroundColor(Color.parseColor("#e6e7e8"));
+        }
+        if(colorValue == -16777216){
+            xOut.setBackgroundResource(R.drawable.exit_icon);
         }
         CoordinatorLayout l = (CoordinatorLayout) findViewById(R.id.back);
         l.setBackgroundColor(colorValue);
@@ -145,28 +149,45 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Calendar c = Calendar.getInstance();
-                int m = c.get(Calendar.MONTH);
-                int d = c.get(Calendar.DAY_OF_MONTH);
-                int y = c.get(Calendar.YEAR);
 
-                myApp.realm.beginTransaction();
-                ActivityEntry newActivity = myApp.realm.createObject(ActivityEntry.class);
-                newActivity.setActivityName(activitySelected.getName());
-                newActivity.setColor(colorValue);
-                if(myApp.realm.where(ActivityEntry.class).findAllSorted("id").isEmpty()) {
-                    newActivity.setId("0");
-                }
-                else {
-                    newActivity.setId(myApp.realm.where(ActivityEntry.class).findAllSorted("id").last().getId()+1);
-                }
-                newActivity.setDay(d);
-                newActivity.setMonth(m);
-                newActivity.setYear(y);
-                myApp.realm.commitTransaction();
+                if(activitySelected == null){
+                    AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
+                    alert.setMessage("Please select an activity before proceeding.");
+                    alert.setTitle("No Activity Selected");
 
-                Intent intent = new Intent(getBaseContext(),AnalysisActivity.class);
-                startActivity(intent);
+                    alert.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                        }
+                    });
+
+                    alert.show();
+
+                } else {
+
+                    Calendar c = Calendar.getInstance();
+                    int m = c.get(Calendar.MONTH);
+                    int d = c.get(Calendar.DAY_OF_MONTH);
+                    int y = c.get(Calendar.YEAR);
+
+                    myApp.realm.beginTransaction();
+                    ActivityEntry newActivity = myApp.realm.createObject(ActivityEntry.class);
+                    newActivity.setActivityName(activitySelected.getName());
+                    newActivity.setColor(colorValue);
+                    if (myApp.realm.where(ActivityEntry.class).findAllSorted("id").isEmpty()) {
+                        newActivity.setId("0");
+                    } else {
+                        newActivity.setId(myApp.realm.where(ActivityEntry.class).findAllSorted("id").last().getId() + 1);
+                    }
+                    newActivity.setDay(d);
+                    newActivity.setMonth(m);
+                    newActivity.setYear(y);
+                    myApp.realm.commitTransaction();
+
+                    Log.i("TAG",activitySelected.getName());
+
+                    Intent intent = new Intent(getBaseContext(), AnalysisActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -175,7 +196,6 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
     public void onItemClick(View view, int position) {
         Log.i("TAG", "You clicked number " + adapter.getItem(position) + ", which is at cell position " + position);
         activitySelected = data.get(position);
-        Log.i("TAG","Color selected: " + activitySelected.getName());
 
         //If the user selects the "Add Activity +" option
         if(position == 0) {
@@ -195,6 +215,7 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
                     myApp.realm.commitTransaction();
                     data.add(newActivity);
                     adapter.notifyDataSetChanged();
+                    activitySelected = data.get(data.size()-1);
                 }
             });
 
@@ -206,6 +227,8 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
 
             alert.show();
         }
+
+        Log.i("TAG","Color selected: " + activitySelected.getName());
     }
 
     private void getAvailableActivities(){
