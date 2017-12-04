@@ -114,7 +114,6 @@ public class ChartsFragment extends Fragment {
         pieDataSet.notifyDataSetChanged();
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(0);
-
         pieDataSet.setColors(colors);
 
         //create pie data object
