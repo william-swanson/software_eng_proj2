@@ -149,28 +149,43 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Calendar c = Calendar.getInstance();
-                int m = c.get(Calendar.MONTH);
-                int d = c.get(Calendar.DAY_OF_MONTH);
-                int y = c.get(Calendar.YEAR);
 
-                myApp.realm.beginTransaction();
-                ActivityEntry newActivity = myApp.realm.createObject(ActivityEntry.class);
-                newActivity.setActivityName(activitySelected.getName());
-                newActivity.setColor(colorValue);
-                if(myApp.realm.where(ActivityEntry.class).findAllSorted("id").isEmpty()) {
-                    newActivity.setId("0");
-                }
-                else {
-                    newActivity.setId(myApp.realm.where(ActivityEntry.class).findAllSorted("id").last().getId()+1);
-                }
-                newActivity.setDay(d);
-                newActivity.setMonth(m);
-                newActivity.setYear(y);
-                myApp.realm.commitTransaction();
+                if(activitySelected == null){
+                    AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
+                    alert.setMessage("Please select an activity before proceeding.");
+                    alert.setTitle("No Activity Selected");
 
-                Intent intent = new Intent(getBaseContext(),AnalysisActivity.class);
-                startActivity(intent);
+                    alert.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                        }
+                    });
+
+                    alert.show();
+
+                } else {
+
+                    Calendar c = Calendar.getInstance();
+                    int m = c.get(Calendar.MONTH);
+                    int d = c.get(Calendar.DAY_OF_MONTH);
+                    int y = c.get(Calendar.YEAR);
+
+                    myApp.realm.beginTransaction();
+                    ActivityEntry newActivity = myApp.realm.createObject(ActivityEntry.class);
+                    newActivity.setActivityName(activitySelected.getName());
+                    newActivity.setColor(colorValue);
+                    if (myApp.realm.where(ActivityEntry.class).findAllSorted("id").isEmpty()) {
+                        newActivity.setId("0");
+                    } else {
+                        newActivity.setId(myApp.realm.where(ActivityEntry.class).findAllSorted("id").last().getId() + 1);
+                    }
+                    newActivity.setDay(d);
+                    newActivity.setMonth(m);
+                    newActivity.setYear(y);
+                    myApp.realm.commitTransaction();
+
+                    Intent intent = new Intent(getBaseContext(), AnalysisActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }
