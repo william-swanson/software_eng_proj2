@@ -35,9 +35,9 @@ import io.realm.RealmResults;
 public class ChartsFragment extends Fragment {
 
     private AnalysisActivity analysisActivity;
-    private TextView testingView;
     private PieChart pieChart;
-    private Spinner filterSpinner;
+    private Spinner dateSpinner;
+    private PieData pieData;
 
     public ChartsFragment() {
         // Required empty public constructor
@@ -54,25 +54,23 @@ public class ChartsFragment extends Fragment {
         pieChart.getDescription().setEnabled(false);
         pieChart.setRotationEnabled(true);
         pieChart.setUsePercentValues(true);
-        //pieChart.setHoleColor(Color.BLUE);
         pieChart.setCenterTextColor(Color.BLACK);
-        pieChart.setHoleRadius(25f);
+        pieChart.setHoleRadius(0f);
         pieChart.setTransparentCircleAlpha(0);
-        pieChart.setCenterText("Colors");
-        pieChart.setCenterTextSize(10);
-        //pieChart.setDrawEntryLabels(true);
-        //pieChart.setEntryLabelTextSize(20);
 
-        filterSpinner = (Spinner) view.findViewById(R.id.filter_spinner);
+        dateSpinner = (Spinner) view.findViewById(R.id.date_spinner);
+        ArrayList<String> dateList = new ArrayList<String>();
+        dateList.add("All");
+        dateList.add("Week");
+        dateList.add("Month");
+        dateList.add("Year");
 
-        ArrayList<String> arrayList = analysisActivity.getUniqueActivities();
+        ArrayAdapter<String> dateAdapter = new ArrayAdapter<String>(analysisActivity.getApplicationContext(), android.R.layout.simple_spinner_item, dateList);
+        dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dateSpinner.setAdapter(dateAdapter);
+        dateSpinner.setSelection(0);
 
-        ArrayAdapter<String> stringAdapter = new ArrayAdapter<String>(analysisActivity.getApplicationContext(), android.R.layout.simple_spinner_item, arrayList);
-        stringAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        filterSpinner.setAdapter(stringAdapter);
-        filterSpinner.setSelection(0);
-
-        filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        dateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 addDataSet();
@@ -84,15 +82,14 @@ public class ChartsFragment extends Fragment {
             }
         });
 
-        addDataSet();
-    /*
+
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
                 int pos1 = e.toString().indexOf("(sum): ");
-                String sales = e.toString().substring(pos1 + 7);
+                String total = e.toString().substring(pos1 + 7);
 
-                Toast.makeText(getActivity(), "Employee ", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Total: " + total, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -100,7 +97,7 @@ public class ChartsFragment extends Fragment {
 
             }
         });
-        */
+
 
         return view;
     }
@@ -111,15 +108,14 @@ public class ChartsFragment extends Fragment {
 
         //create the data set
         PieDataSet pieDataSet = new PieDataSet(yEntrys, "Colors");
-        pieDataSet.notifyDataSetChanged();
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(0);
         pieDataSet.setColors(colors);
 
         //create pie data object
-        PieData pieData = new PieData(pieDataSet);
-        pieData.notifyDataChanged();
+        pieData = new PieData(pieDataSet);
         pieChart.setData(pieData);
+        pieData.notifyDataChanged();
         pieChart.notifyDataSetChanged();
         pieChart.invalidate();
     }
@@ -128,7 +124,7 @@ public class ChartsFragment extends Fragment {
         ArrayList<Integer> colors = new ArrayList<Integer>();
         RealmResults<ActivityEntry> activities = analysisActivity.myApp.realm.where(ActivityEntry.class).findAll();
         ArrayList<ActivityEntry> activities2 = new ArrayList<ActivityEntry>();
-        String choice = filterSpinner.getSelectedItem().toString();
+        String choice = analysisActivity.filterSpinner.getSelectedItem().toString();
 
         if(!choice.equals("All"))
         {
@@ -166,7 +162,7 @@ public class ChartsFragment extends Fragment {
         int sum = 0;
         int i = 0;
         ArrayList<ActivityEntry> activities2 = new ArrayList<ActivityEntry>();
-        String choice = filterSpinner.getSelectedItem().toString();
+        String choice = analysisActivity.filterSpinner.getSelectedItem().toString();
 
         if(!choice.equals("All"))
         {
