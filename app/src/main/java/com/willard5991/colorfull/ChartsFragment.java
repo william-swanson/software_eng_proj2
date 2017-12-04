@@ -50,27 +50,6 @@ public class ChartsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_charts, container, false);
         analysisActivity = (AnalysisActivity) this.getActivity();
 
-        filterSpinner = (Spinner) view.findViewById(R.id.filter_spinner);
-
-        ArrayList<String> arrayList = analysisActivity.getUniqueActivities();
-
-        ArrayAdapter<String> stringAdapter = new ArrayAdapter<String>(analysisActivity.getApplicationContext(), android.R.layout.simple_spinner_item, arrayList);
-        stringAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        filterSpinner.setAdapter(stringAdapter);
-        filterSpinner.setSelection(0);
-
-        filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
         pieChart = (PieChart) view.findViewById(R.id.pie_chart);
         pieChart.getDescription().setEnabled(false);
         pieChart.setRotationEnabled(true);
@@ -83,6 +62,27 @@ public class ChartsFragment extends Fragment {
         pieChart.setCenterTextSize(10);
         //pieChart.setDrawEntryLabels(true);
         //pieChart.setEntryLabelTextSize(20);
+
+        filterSpinner = (Spinner) view.findViewById(R.id.filter_spinner);
+
+        ArrayList<String> arrayList = analysisActivity.getUniqueActivities();
+
+        ArrayAdapter<String> stringAdapter = new ArrayAdapter<String>(analysisActivity.getApplicationContext(), android.R.layout.simple_spinner_item, arrayList);
+        stringAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        filterSpinner.setAdapter(stringAdapter);
+        filterSpinner.setSelection(0);
+
+        filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                addDataSet();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         addDataSet();
     /*
@@ -105,13 +105,13 @@ public class ChartsFragment extends Fragment {
         return view;
     }
 
-
     private void addDataSet() {
         ArrayList<Integer> colors = getUniqueColors();
         ArrayList<PieEntry> yEntrys = getYData(colors);
 
         //create the data set
         PieDataSet pieDataSet = new PieDataSet(yEntrys, "Colors");
+        pieDataSet.notifyDataSetChanged();
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(0);
 
@@ -119,7 +119,9 @@ public class ChartsFragment extends Fragment {
 
         //create pie data object
         PieData pieData = new PieData(pieDataSet);
+        pieData.notifyDataChanged();
         pieChart.setData(pieData);
+        pieChart.notifyDataSetChanged();
         pieChart.invalidate();
     }
 
