@@ -410,6 +410,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             return numActivities;
          }
 
+
         @Override
         public void onClick(View view){
             date_month_year = (String) view.getTag();
