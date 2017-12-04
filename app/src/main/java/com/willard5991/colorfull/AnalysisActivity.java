@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -52,6 +53,8 @@ public class AnalysisActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab){
                 viewPager.setCurrentItem(tab.getPosition());
+//                viewPager.getAdapter().
+//                viewPager.setCurrentFragment(tab.getPosition());
             }
 
             @Override
@@ -77,7 +80,10 @@ public class AnalysisActivity extends AppCompatActivity {
         filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+                Log.v("hi", "activity");
+                String filter = "RefreshSpinner";
+                Intent intent = new Intent(filter); //If you need extra, add: intent.putExtra("extra","something");
+                LocalBroadcastManager.getInstance(getBaseContext()).sendBroadcast(intent);
             }
 
             @Override
