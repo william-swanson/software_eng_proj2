@@ -90,7 +90,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         calendarView.setAdapter(adapter);
 
         analysisActivity = (AnalysisActivity) this.getActivity();
-        allActivities = analysisActivity.realm.where(ActivityEntry.class).findAll();
+        allActivities = analysisActivity.myApp.realm.where(ActivityEntry.class).findAll();
         
 
         /*
