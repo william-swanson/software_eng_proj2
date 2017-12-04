@@ -2,11 +2,14 @@ package com.willard5991.colorfull;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -17,6 +20,8 @@ public class ActivityRecyclerViewAdapter extends RecyclerView.Adapter<ActivityRe
 
     private ArrayList<ActivityName> mData = new ArrayList<ActivityName>();
     private int backgroundColor;
+    private SparseBooleanArray selected = new SparseBooleanArray();
+    private int selectedItem;
 
     private LayoutInflater mInflater;
     private ActivityRecyclerViewAdapter.ItemClickListener mClickListener;
@@ -40,6 +45,28 @@ public class ActivityRecyclerViewAdapter extends RecyclerView.Adapter<ActivityRe
         @Override
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            if (selected.get(getAdapterPosition(), false)) {
+                selected.delete(getAdapterPosition());
+                activityButton.setSelected(false);
+            }
+            else {
+                selected.put(getAdapterPosition(), true);
+                activityButton.setSelected(true);
+                selectedItem = getAdapterPosition();
+            }
+            notifyDataSetChanged();
+//            if(view.isSelected()){
+//                view.setSelected(false);
+//            } else {
+//                view.setSelected(true);
+//            }
+//            Log.i("TAG","clicked item");
+//            selected = getAdapterPosition();
+//            if(backgroundColor == -1){
+//                activityButton.setBackgroundColor(Color.LTGRAY);
+//            } else {
+//                activityButton.setBackgroundColor(Color.WHITE);
+//            }
         }
     }
 
@@ -68,6 +95,14 @@ public class ActivityRecyclerViewAdapter extends RecyclerView.Adapter<ActivityRe
         String name = entry.getName();
         holder.activityButton.setText(name);
 
+        for(int i = 0; i< getItemCount(); i++){
+            if(i != selectedItem){
+                selected.put(i,false);
+            }
+        }
+
+        holder.activityButton.setSelected(selected.get(position,false));
+
     }
 
     // convenience method for getting data at click position
@@ -79,6 +114,8 @@ public class ActivityRecyclerViewAdapter extends RecyclerView.Adapter<ActivityRe
     public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
+
+
 
     // parent activity will implement this method to respond to click events
     public interface ItemClickListener {
