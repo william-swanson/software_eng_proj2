@@ -40,9 +40,6 @@ public class ChartsFragment extends Fragment {
     private PieChart pieChart;
     private Spinner dateSpinner;
     private PieData pieData;
-    private ImageView prev;
-    private ImageView next;
-    private TextView current;
 
     public ChartsFragment() {
         // Required empty public constructor
@@ -63,7 +60,8 @@ public class ChartsFragment extends Fragment {
         pieChart.setHoleRadius(0f);
         pieChart.setTransparentCircleAlpha(0);
 
-        //Functionality for version 2
+        //NOTE: This section is not implemented in the filtering, it just shows how we would do the spinner for the filter
+        //Begin "version 2" spinner
         dateSpinner = (Spinner) view.findViewById(R.id.date_spinner);
         ArrayList<String> dateList = new ArrayList<String>();
         dateList.add("All");
@@ -87,6 +85,7 @@ public class ChartsFragment extends Fragment {
 
             }
         });
+        //End Version 2 spinner
 
         analysisActivity.filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
