@@ -4,12 +4,14 @@ package com.willard5991.colorfull;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +40,9 @@ public class ChartsFragment extends Fragment {
     private PieChart pieChart;
     private Spinner dateSpinner;
     private PieData pieData;
+    private ImageView prev;
+    private ImageView next;
+    private TextView current;
 
     public ChartsFragment() {
         // Required empty public constructor
@@ -58,6 +63,7 @@ public class ChartsFragment extends Fragment {
         pieChart.setHoleRadius(0f);
         pieChart.setTransparentCircleAlpha(0);
 
+        //Functionality for version 2
         dateSpinner = (Spinner) view.findViewById(R.id.date_spinner);
         ArrayList<String> dateList = new ArrayList<String>();
         dateList.add("All");
@@ -82,6 +88,17 @@ public class ChartsFragment extends Fragment {
             }
         });
 
+        analysisActivity.filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                addDataSet();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -101,6 +118,7 @@ public class ChartsFragment extends Fragment {
 
         return view;
     }
+
 
     private void addDataSet() {
         ArrayList<Integer> colors = getUniqueColors();
@@ -130,7 +148,7 @@ public class ChartsFragment extends Fragment {
         {
             for(ActivityEntry activity: activities)
             {
-                if(activity.getActivityName().equals(choice));
+                if(activity.getActivityName().equals(choice))
                 {
                     activities2.add(activity);
                 }
@@ -168,7 +186,7 @@ public class ChartsFragment extends Fragment {
         {
             for(ActivityEntry activity: activities)
             {
-                if(activity.getActivityName().equals(choice));
+                if(activity.getActivityName().equals(choice))
                 {
                     activities2.add(activity);
                 }
@@ -176,10 +194,7 @@ public class ChartsFragment extends Fragment {
         }
         else
         {
-            for(ActivityEntry activity: activities)
-            {
-                activities2.add(activity);
-            }
+            activities2.addAll(activities);
         }
 
         for(Integer color: colors)
