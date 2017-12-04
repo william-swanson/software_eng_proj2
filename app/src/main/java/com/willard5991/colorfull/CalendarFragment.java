@@ -68,7 +68,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         month = _calendar.get(Calendar.MONTH) + 1;
         year = _calendar.get(Calendar.YEAR);
 
-
         prevMonth = (ImageView) view.findViewById(R.id.prevMonth);
         prevMonth.setOnClickListener(this);
 
@@ -87,12 +86,10 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         calendarView.setAdapter(adapter);
 
         analysisActivity = (AnalysisActivity) this.getActivity();
-        //allActivities = analysisActivity.myApp.realm.where(ActivityEntry.class).findAll();
         analysisActivity.filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 sortedActivities = getFilteredItems();
-
             }
 
             @Override
@@ -347,7 +344,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             int numActivities = 0;
 
             todaysActivities = new ArrayList<ActivityEntry>();
-            //Log.i("Today's day: ", theday);
 
             for(ActivityEntry activity : sortedActivities) {
                 if((activity.getDay() == Integer.parseInt(theday)) && (activity.getMonth() == monthToInt(themonth))) { //&& activity.getYear() == Integer.parseInt(theyear)) {
@@ -373,9 +369,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                 rect2BG.setColor(todaysActivities.get(0).getColor());
                 rect3BG.setColor(todaysActivities.get(1).getColor());
                 rect4BG.setColor(todaysActivities.get(1).getColor());
-                //Log.i("2 activities?", "true");
             }
-
             //if function = 3
             else if(numActivities == 3) {
 
@@ -384,7 +378,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                 rect3BG.setColor(todaysActivities.get(2).getColor());
                 rect4BG.setColor(getResources().getColor(R.color.color32)); //base color
             }
-
             //if function = 4+
             else if(numActivities >= 4) {
                 rectBG.setColor(todaysActivities.get(0).getColor());
@@ -392,7 +385,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                 rect3BG.setColor(todaysActivities.get(2).getColor());
                 rect4BG.setColor(todaysActivities.get(3).getColor()); //base color
             }
-
             //set back to normal
             else {
                 rectBG.setColor(getResources().getColor(R.color.color32));
@@ -404,9 +396,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             return row;
         }
          public int activitiesPerDay(ArrayList<ActivityEntry> today) {
-            //This is giving me a memory leak
             int numActivities = today.size();
-            //Log.i("Number activities", Integer.toString(numActivities));
             return numActivities;
          }
 
@@ -414,7 +404,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         public void onClick(View view){
             date_month_year = (String) view.getTag();
             flag ="Date selected ...";
-            //selectedDayMonthYearButton.setText("Selected: " + date_month_year);
             Log.d(TAG, "onClick: " + date_month_year);
         }
 
@@ -482,8 +471,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             for(ActivityEntry activity: activities)
             {
                 String dummy = new String(activity.getActivityName());
-                Log.i("Choice", choice);
-                Log.i("Act name", activity.getActivityName());
                 if(choice.equals(dummy))
                 {
                     activities2.add(activity);
@@ -499,13 +486,3 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         return activities2;
     }
     }
-
-
-
-
-
-
-
-
-
-

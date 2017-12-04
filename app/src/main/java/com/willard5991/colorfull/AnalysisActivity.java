@@ -20,7 +20,6 @@ import io.realm.RealmResults;
 public class AnalysisActivity extends AppCompatActivity {
 
     public Spinner filterSpinner;
-    private MainActivity mainActivity;
     public MyApplication myApp;
 
     @Override
