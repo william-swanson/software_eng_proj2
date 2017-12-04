@@ -39,7 +39,7 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
     private ActivityRecyclerViewAdapter adapter;
     private ArrayList<ActivityName> data;
     private ActivityName activitySelected;
-    private Realm realm;
+    public MyApplication myApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +48,8 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Realm.init(this);
-        RealmConfiguration config = new RealmConfiguration.Builder()
-                .deleteRealmIfMigrationNeeded()
-                .build();
-        Realm.setDefaultConfiguration(config);
-        realm = realm.getDefaultInstance();
+        myApp = (MyApplication) this.getApplication();
+
         //Use if we need to clear Realm
         //realm.beginTransaction();
         //realm.deleteAll();
@@ -65,33 +61,31 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
 //        }
 //        realm = realm.getDefaultInstance();
 
-        BoolFlag bool = realm.where(BoolFlag.class).findFirst();
+        BoolFlag bool = myApp.realm.where(BoolFlag.class).findFirst();
         if(bool == null){
             //set first open flag
-            realm.beginTransaction();
-            BoolFlag flag = realm.createObject(BoolFlag.class);
+            myApp.realm.beginTransaction();
+            BoolFlag flag = myApp.realm.createObject(BoolFlag.class);
             flag.setFlag(true);
-            realm.commitTransaction();
+            myApp.realm.commitTransaction();
             Log.i("TAG","initial setting flag");
 
             //Add option for creating custom activityentries
             //Add example activityentries
-            realm.beginTransaction();
+            myApp.realm.beginTransaction();
 
-            ActivityName addActivity = realm.createObject(ActivityName.class);
+            ActivityName addActivity = myApp.realm.createObject(ActivityName.class);
             addActivity.setName("Add Activity +");
-            /*
-            ActivityEntry workedOut = realm.createObject(ActivityEntry.class);
-            workedOut.setActivityName("Worked Out");
-            ActivityEntry running = realm.createObject(ActivityEntry.class);
-            running.setActivityName("Running");
-            ActivityEntry ateDinner = realm.createObject(ActivityEntry.class);
-            ateDinner.setActivityName("Ate Dinner");
-            ActivityEntry ateBreakfast = realm.createObject(ActivityEntry.class);
-            ateBreakfast.setActivityName("Ate Breakfast");
-            */
+            ActivityName workedOut = myApp.realm.createObject(ActivityName.class);
+            workedOut.setName("Worked Out");
+            ActivityName running = myApp.realm.createObject(ActivityName.class);
+            running.setName("Running");
+            ActivityName ateDinner = myApp.realm.createObject(ActivityName.class);
+            ateDinner.setName("Ate Dinner");
+            ActivityName ateBreakfast = myApp.realm.createObject(ActivityName.class);
+            ateBreakfast.setName("Ate Breakfast");
 
-            realm.commitTransaction();
+            myApp.realm.commitTransaction();
         } else {
             Log.i("TAG","flag already set");
         }
@@ -142,30 +136,22 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
                 int m = c.get(Calendar.MONTH);
                 int d = c.get(Calendar.DAY_OF_MONTH);
                 int y = c.get(Calendar.YEAR);
-                Date today = new Date(d, m, y);
 
-                realm.beginTransaction();
-                ActivityEntry newActivity = realm.createObject(ActivityEntry.class);
+                myApp.realm.beginTransaction();
+                ActivityEntry newActivity = myApp.realm.createObject(ActivityEntry.class);
                 newActivity.setActivityName(activitySelected.getName());
                 newActivity.setColor(colorValue);
-                if(realm.where(ActivityEntry.class).findAllSorted("id").isEmpty()) {
+                if(myApp.realm.where(ActivityEntry.class).findAllSorted("id").isEmpty()) {
                     newActivity.setId("0");
                 }
                 else {
-                    newActivity.setId(realm.where(ActivityEntry.class).findAllSorted("id").last().getId()+1);
+                    newActivity.setId(myApp.realm.where(ActivityEntry.class).findAllSorted("id").last().getId()+1);
                 }
-
-
-                Log.i("TAG", Integer.toString(d));
-                Log.i("TAG", Integer.toString(m));
-                Log.i("TAG", Integer.toString(y));
                 newActivity.setDay(d);
                 newActivity.setMonth(m);
                 newActivity.setYear(y);
-                realm.commitTransaction();
+                myApp.realm.commitTransaction();
 
-                realm.close();
-                realm.close(); //not sure why, but seems to only run with close() twice
                 Intent intent = new Intent(getBaseContext(),AnalysisActivity.class);
                 startActivity(intent);
             }
@@ -190,10 +176,10 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
             alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     String userInput = edittext.getText().toString();
-                    realm.beginTransaction();
-                    ActivityName newActivity = realm.createObject(ActivityName.class);
+                    myApp.realm.beginTransaction();
+                    ActivityName newActivity = myApp.realm.createObject(ActivityName.class);
                     newActivity.setName(userInput);
-                    realm.commitTransaction();
+                    myApp.realm.commitTransaction();
                     data.add(newActivity);
                     adapter.notifyDataSetChanged();
                 }
@@ -210,7 +196,7 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
     }
 
     private void getAvailableActivities(){
-        RealmResults<ActivityName> results = realm.where(ActivityName.class).findAll();
+        RealmResults<ActivityName> results = myApp.realm.where(ActivityName.class).findAll();
         for(ActivityName r : results){
             data.add(r);
         }

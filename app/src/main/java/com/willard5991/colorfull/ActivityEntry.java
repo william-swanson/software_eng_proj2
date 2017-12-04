@@ -11,7 +11,6 @@ import io.realm.RealmModel;
 public class ActivityEntry extends RealmObject{
 
     private String id;
-    //private Date date;
     private String activityName;
     private int color;
     private int day;

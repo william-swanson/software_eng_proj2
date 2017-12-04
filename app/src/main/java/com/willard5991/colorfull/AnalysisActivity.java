@@ -20,12 +20,14 @@ public class AnalysisActivity extends AppCompatActivity {
 
     public Spinner filterSpinner;
     private MainActivity mainActivity;
-    public Realm realm;
+    public MyApplication myApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analysis);
+
+        myApp = (MyApplication) this.getApplication();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -35,8 +37,6 @@ public class AnalysisActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        realm = realm.getDefaultInstance();
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.addTab(tabLayout.newTab().setText("Calendar"));
@@ -72,6 +72,7 @@ public class AnalysisActivity extends AppCompatActivity {
         ArrayAdapter<String> stringAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayList);
         stringAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         filterSpinner.setAdapter(stringAdapter);
+        filterSpinner.setSelection(0);
 
         filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -88,7 +89,7 @@ public class AnalysisActivity extends AppCompatActivity {
 
     public ArrayList<String> getUniqueActivities(){
         ArrayList<String> activityNames = new ArrayList<String>();
-        RealmResults<ActivityEntry> activities = realm.where(ActivityEntry.class).findAll();
+        RealmResults<ActivityEntry> activities = myApp.realm.where(ActivityEntry.class).findAll();
         activityNames.add("All");
 
         for (ActivityEntry activity: activities)
@@ -102,11 +103,6 @@ public class AnalysisActivity extends AppCompatActivity {
         }
 
         return activityNames;
-    }
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        realm.close();
     }
 
 }
