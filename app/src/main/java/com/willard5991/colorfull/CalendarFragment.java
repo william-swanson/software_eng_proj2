@@ -55,6 +55,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
     //private ActivityEntry activity1;
     RealmResults<ActivityEntry> allActivities;
     private ArrayList<ActivityEntry> todaysActivities;
+    private ArrayList<ActivityEntry> sortedActivities;
 
     public CalendarFragment() {
         // Required empty public constructor
@@ -90,7 +91,22 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         calendarView.setAdapter(adapter);
 
         analysisActivity = (AnalysisActivity) this.getActivity();
-        allActivities = analysisActivity.myApp.realm.where(ActivityEntry.class).findAll();
+        //allActivities = analysisActivity.myApp.realm.where(ActivityEntry.class).findAll();
+        analysisActivity.filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                sortedActivities = getFilteredItems();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+
+        });
+        sortedActivities = getFilteredItems();
+
         
 
         /*
@@ -349,9 +365,9 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             int numActivities = 0;
 
             todaysActivities = new ArrayList<ActivityEntry>();
-            Log.i("Today's day: ", theday);
+            //Log.i("Today's day: ", theday);
 
-            for(ActivityEntry activity : allActivities) {
+            for(ActivityEntry activity : sortedActivities) {
                 if((activity.getDay() == Integer.parseInt(theday)) && (activity.getMonth() == monthToInt(themonth))) { //&& activity.getYear() == Integer.parseInt(theyear)) {
                     //Log.i("Today's activitiy", theday + " has an activity");
                     todaysActivities.add(activity);
@@ -360,7 +376,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             }
 
             numActivities = activitiesPerDay(todaysActivities);
-            Log.i("number activities today", Integer.toString(numActivities));
+            //Log.i("number activities today", Integer.toString(numActivities));
 
             //if function = 1
             if(numActivities == 1) {
@@ -376,7 +392,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                 rect2BG.setColor(todaysActivities.get(0).getColor());
                 rect3BG.setColor(todaysActivities.get(1).getColor());
                 rect4BG.setColor(todaysActivities.get(1).getColor());
-                Log.i("2 activities?", "true");
+                //Log.i("2 activities?", "true");
             }
 
             //if function = 3
@@ -481,6 +497,35 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             return monthNum;
 
         }
+
+    }
+    public ArrayList<ActivityEntry> getFilteredItems() {
+        RealmResults<ActivityEntry> activities = analysisActivity.myApp.realm.where(ActivityEntry.class).findAll();
+        ArrayList<ActivityEntry> activities2 = new ArrayList<ActivityEntry>();
+        String choice = analysisActivity.filterSpinner.getSelectedItem().toString();
+
+
+        if(!choice.equals("All"))
+        {
+            for(ActivityEntry activity: activities)
+            {
+                String dummy = new String(activity.getActivityName());
+                Log.i("Choice", choice);
+                Log.i("Act name", activity.getActivityName());
+                if(choice.equals(dummy))
+                {
+                    activities2.add(activity);
+
+                }
+            }
+        }
+        else
+        {
+            activities2.addAll(activities);
+        }
+        Log.i("Filtered activities size", Integer.toString(activities2.size()));
+        adapter.notifyDataSetChanged();
+        return activities2;
     }
 
 
