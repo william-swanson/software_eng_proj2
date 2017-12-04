@@ -63,6 +63,7 @@ public class ChartsFragment extends Fragment {
         pieChart.setHoleRadius(0f);
         pieChart.setTransparentCircleAlpha(0);
 
+        //Functionality for version 2
         dateSpinner = (Spinner) view.findViewById(R.id.date_spinner);
         ArrayList<String> dateList = new ArrayList<String>();
         dateList.add("All");
@@ -99,14 +100,6 @@ public class ChartsFragment extends Fragment {
             }
         });
 
-        prev = (ImageView) view.findViewById(R.id.prevMonth);
-
-
-        current = (TextView) view.findViewById(R.id.currentMonth);
-        current.setText(dateSpinner.getSelectedItem().toString());
-
-        next = (ImageView) view.findViewById(R.id.nextMonth);
-
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
@@ -126,27 +119,6 @@ public class ChartsFragment extends Fragment {
         return view;
     }
 
-//    @Override
-//    public void onClick(View v){
-//        if (v == prev){
-//            if (month <= 1){
-//                month = 12;
-//                year--;
-//            }
-//            else
-//                month--;
-//            setGridCellAdapterToDate(month, year);
-//        }
-//        if (v == next){
-//            if (month > 11){
-//                month = 1;
-//                year++;
-//            }
-//            else
-//                month++;
-//            setGridCellAdapterToDate(month, year);
-//        }
-//    }
 
     private void addDataSet() {
         ArrayList<Integer> colors = getUniqueColors();
@@ -222,10 +194,7 @@ public class ChartsFragment extends Fragment {
         }
         else
         {
-            for(ActivityEntry activity: activities)
-            {
-                activities2.add(activity);
-            }
+            activities2.addAll(activities);
         }
 
         for(Integer color: colors)

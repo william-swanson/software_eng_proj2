@@ -21,37 +21,4 @@
         android:background="@color/colorPrimary"
         tools:layout_editor_absoluteY="83dp" />
 
-    <ImageView
-        android:id="@+id/prevMonth"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/exit_icon">
-
-    </ImageView>
-
-    <TextView
-        android:id="@+id/currentMonth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/nextMonth"
-        android:layout_centerHorizontal="true"
-        android:layout_weight="0.6"
-
-        android:gravity="center_vertical"
-        android:textSize="25sp">
-
-    </TextView>
-
-    <ImageView
-        android:id="@+id/nextMonth"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/tableRow1"
-        android:src="@drawable/exit_icon">
-
-    </ImageView>
-
 </FrameLayout>
