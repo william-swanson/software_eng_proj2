@@ -93,7 +93,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         calendarView = (GridView) view.findViewById(R.id.calendar);
 
         // Initialised
-        //CHANGED from getApplicationContext
         adapter = new GridCellAdapter(getContext(), R.id.calendar_day_gridcell, month, year);
         adapter.notifyDataSetChanged();
         calendarView.setAdapter(adapter);
@@ -109,7 +108,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
     }
 
     private void setGridCellAdapterToDate(int month, int year){
-        //CHANGED from getApplicationContext
         adapter = new GridCellAdapter(getContext(), R.id.calendar_day_gridcell, month, year);
         _calendar.set(year, month - 1, _calendar.get(Calendar.DAY_OF_MONTH));
         currentMonth.setText(DateFormat.format(dateTemplate, _calendar.getTime()));
@@ -276,7 +274,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             gridcell.setOnClickListener(this);
 
             num_of_day = (TextView) row.findViewById(R.id.num_of_day);
-            //num_of_day.setOnClickListener(this);
 
             //Spacing issues
             String[] day_color = list.get(position).split("-");
@@ -294,24 +291,18 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             //TODO: (maybe) try to set text to textview num_of_day. Currently not working.
             // Set the Day GridCell
             gridcell.setText(theday);
-            //num_of_day.setText("Hello");
 
             gridcell.setTag(theday + "-" + themonth + "-" + theyear);
-            //Log.i("DAy", theday);
-            //num_of_day.setTag(theday + "-" + themonth + "-" + theyear);
 
             if (day_color[1].equals("GREY"))
                 gridcell.setTextColor(Color.GRAY);
-                //num_of_day.setTextColor(Color.GRAY);
 
             if (day_color[1].equals("WHITE"))
                 gridcell.setTextColor(Color.WHITE);
-                //num_of_day.setTextColor(Color.WHITE);
 
 
             if (day_color[1].equals("BLUE"))
                 gridcell.setTextColor(getResources().getColor(R.color.color20));
-                //num_of_day.setTextColor(getResources().getColor(R.color.color20));
 
             // Changing background colors //
 
@@ -389,7 +380,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         public void onClick(View view){
             date_month_year = (String) view.getTag();
             flag ="Date selected ...";
-            Log.d(TAG, "onClick: " + date_month_year);
         }
 
         public int getCurrentDayOfMonth(){

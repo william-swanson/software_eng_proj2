@@ -70,7 +70,6 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
             BoolFlag flag = myApp.realm.createObject(BoolFlag.class);
             flag.setFlag(true);
             myApp.realm.commitTransaction();
-            Log.i("TAG","initial setting flag");
 
             //Add option for creating custom activityentries
             //Add example activityentries

@@ -94,7 +94,6 @@ public class ChartsFragment extends Fragment {
         dateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                Log.v("hi", "chart fragment");
                 addDataSet();
             }
 
