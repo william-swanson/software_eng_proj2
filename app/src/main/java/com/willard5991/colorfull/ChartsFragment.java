@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +37,7 @@ public class ChartsFragment extends Fragment {
     private AnalysisActivity analysisActivity;
     private TextView testingView;
     private PieChart pieChart;
+    private Spinner filterSpinner;
 
     public ChartsFragment() {
         // Required empty public constructor
@@ -45,6 +49,27 @@ public class ChartsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_charts, container, false);
         analysisActivity = (AnalysisActivity) this.getActivity();
+
+        filterSpinner = (Spinner) view.findViewById(R.id.filter_spinner);
+
+        ArrayList<String> arrayList = analysisActivity.getUniqueActivities();
+
+        ArrayAdapter<String> stringAdapter = new ArrayAdapter<String>(analysisActivity.getApplicationContext(), android.R.layout.simple_spinner_item, arrayList);
+        stringAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        filterSpinner.setAdapter(stringAdapter);
+        filterSpinner.setSelection(0);
+
+        filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         pieChart = (PieChart) view.findViewById(R.id.pie_chart);
         pieChart.getDescription().setEnabled(false);
@@ -76,6 +101,7 @@ public class ChartsFragment extends Fragment {
             }
         });
         */
+
         return view;
     }
 
@@ -100,7 +126,7 @@ public class ChartsFragment extends Fragment {
         ArrayList<Integer> colors = new ArrayList<Integer>();
         RealmResults<ActivityEntry> activities = analysisActivity.myApp.realm.where(ActivityEntry.class).findAll();
         ArrayList<ActivityEntry> activities2 = new ArrayList<ActivityEntry>();
-        String choice = analysisActivity.filterSpinner.getSelectedItem().toString();
+        String choice = filterSpinner.getSelectedItem().toString();
 
         if(!choice.equals("All"))
         {
@@ -138,7 +164,7 @@ public class ChartsFragment extends Fragment {
         int sum = 0;
         int i = 0;
         ArrayList<ActivityEntry> activities2 = new ArrayList<ActivityEntry>();
-        String choice = analysisActivity.filterSpinner.getSelectedItem().toString();
+        String choice = filterSpinner.getSelectedItem().toString();
 
         if(!choice.equals("All"))
         {

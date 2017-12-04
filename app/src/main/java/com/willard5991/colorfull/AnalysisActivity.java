@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -65,26 +66,26 @@ public class AnalysisActivity extends AppCompatActivity {
             }
         });
 
-        filterSpinner = (Spinner) findViewById(R.id.filter_spinner);
-
-        ArrayList<String> arrayList = getUniqueActivities();
-
-        ArrayAdapter<String> stringAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayList);
-        stringAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        filterSpinner.setAdapter(stringAdapter);
-        filterSpinner.setSelection(0);
-
-        filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+//        filterSpinner = (Spinner) findViewById(R.id.filter_spinner);
+//
+//        ArrayList<String> arrayList = getUniqueActivities();
+//
+//        ArrayAdapter<String> stringAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayList);
+//        stringAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        filterSpinner.setAdapter(stringAdapter);
+//        filterSpinner.setSelection(0);
+//
+//        filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
     }
 
     public ArrayList<String> getUniqueActivities(){
@@ -95,6 +96,10 @@ public class AnalysisActivity extends AppCompatActivity {
         for (ActivityEntry activity: activities)
         {
             if(!activityNames.contains(activity.getActivityName())) {
+<<<<<<< HEAD
+=======
+                Log.i("TAG",activity.getActivityName());
+>>>>>>> d93d0fa20af61b06339a8a5fba76997fe9085a1a
                 activityNames.add(activity.getActivityName());
             }
         }
