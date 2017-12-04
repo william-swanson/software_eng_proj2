@@ -81,7 +81,7 @@ public class ChartsFragment extends Fragment {
 
 
     private void addDataSet() {
-        ArrayList<ActivityEntry> colors = getUniqueColors();
+        ArrayList<Integer> colors = getUniqueColors();
         ArrayList<PieEntry> yEntrys = getYData(colors);
 
         //create the data set
@@ -89,14 +89,7 @@ public class ChartsFragment extends Fragment {
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(0);
 
-        //add colors to dataset
-        ArrayList<Integer> integerColors = new ArrayList<Integer>();
-        for(ActivityEntry color: colors)
-        {
-            integerColors.add(color.getColor());
-        }
-
-        pieDataSet.setColors(integerColors);
+        pieDataSet.setColors(colors);
 
         //create pie data object
         PieData pieData = new PieData(pieDataSet);
@@ -104,8 +97,8 @@ public class ChartsFragment extends Fragment {
         pieChart.invalidate();
     }
 
-    public ArrayList<ActivityEntry> getUniqueColors(){
-        ArrayList<ActivityEntry> colors = new ArrayList<ActivityEntry>();
+    public ArrayList<Integer> getUniqueColors(){
+        ArrayList<Integer> colors = new ArrayList<Integer>();
         RealmResults<ActivityEntry> activities = analysisActivity.myApp.realm.where(ActivityEntry.class).findAll();
         ArrayList<ActivityEntry> activities2 = new ArrayList<ActivityEntry>();
         String choice = analysisActivity.filterSpinner.getSelectedItem().toString();
@@ -122,28 +115,25 @@ public class ChartsFragment extends Fragment {
         }
         else
         {
-            for(ActivityEntry activity: activities)
-            {
-                activities2.add(activity);
-            }
+           activities2.addAll(activities);
         }
 
         for (ActivityEntry activity: activities2)
         {
             if(colors.isEmpty())
             {
-                colors.add(activity);
+                colors.add(activity.getColor());
             }
             if(!colors.contains(activity.getColor()))
             {
-                colors.add(activity);
+                colors.add(activity.getColor());
 
             }
         }
         return colors;
     }
 
-    public ArrayList<PieEntry> getYData(ArrayList<ActivityEntry> colors){
+    public ArrayList<PieEntry> getYData(ArrayList<Integer> colors){
         ArrayList<PieEntry> yData = new ArrayList<PieEntry>();
         RealmResults<ActivityEntry> activities = analysisActivity.myApp.realm.where(ActivityEntry.class).findAll();
         int sum = 0;
@@ -169,11 +159,11 @@ public class ChartsFragment extends Fragment {
             }
         }
 
-        for(ActivityEntry color: colors)
+        for(Integer color: colors)
         {
             for (ActivityEntry activity: activities2)
             {
-                if (activity.getColor() == color.getColor())
+                if (activity.getColor() == color)
                 {
                     sum ++;
                 }
