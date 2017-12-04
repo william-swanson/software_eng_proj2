@@ -36,7 +36,6 @@ public class ActivityRecyclerViewAdapter extends RecyclerView.Adapter<ActivityRe
             super(itemView);
             activityButton = (TextView) itemView.findViewById(R.id.activityRect);
             if(backgroundColor == -1){
-//                activityButton.setBackgroundColor(Color.parseColor("#e6e7e8"));
                 activityButton.setBackgroundResource(R.drawable.activity_box_white);
             }
             itemView.setOnClickListener(this);
@@ -59,18 +58,6 @@ public class ActivityRecyclerViewAdapter extends RecyclerView.Adapter<ActivityRe
                 selectedItem = selectedPos;
             }
             notifyDataSetChanged();
-//            if(view.isSelected()){
-//                view.setSelected(false);
-//            } else {
-//                view.setSelected(true);
-//            }
-//            Log.i("TAG","clicked item");
-//            selected = getAdapterPosition();
-//            if(backgroundColor == -1){
-//                activityButton.setBackgroundColor(Color.LTGRAY);
-//            } else {
-//                activityButton.setBackgroundColor(Color.WHITE);
-//            }
         }
     }
 
@@ -118,8 +105,6 @@ public class ActivityRecyclerViewAdapter extends RecyclerView.Adapter<ActivityRe
     public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
-
-
 
     // parent activity will implement this method to respond to click events
     public interface ItemClickListener {

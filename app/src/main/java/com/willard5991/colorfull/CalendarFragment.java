@@ -93,52 +93,21 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         calendarView = (GridView) view.findViewById(R.id.calendar);
 
         // Initialised
-        //CHANGED from getApplicationContext
         adapter = new GridCellAdapter(getContext(), R.id.calendar_day_gridcell, month, year);
         adapter.notifyDataSetChanged();
         calendarView.setAdapter(adapter);
 
         analysisActivity = (AnalysisActivity) this.getActivity();
-//        analysisActivity.filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                Log.v("hi", "calendar fragment");
-//                sortedActivities = getFilteredItems();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
 
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mYourBroadcastReceiver,
                 new IntentFilter("RefreshSpinner"));
 
         sortedActivities = getFilteredItems();
 
-        /*
-        //this is how you add test data
-        analysisActivity.realm.beginTransaction();
-        ActivityEntry activity4 = analysisActivity.realm.createObject(ActivityEntry.class);
-
-        activity4.setActivityName("running");
-        activity4.setYear(2017);
-        activity4.setDay(10);
-        activity4.setMonth(11);
-        activity4.setColor(getResources().getColor(R.color.color1));
-        activity4.setId("1234");
-
-        analysisActivity.realm.commitTransaction();
-        */
-        //Log.i("Color", Integer.toString(getResources().getColor(R.color.color1)));
-
-
         return view;
     }
 
     private void setGridCellAdapterToDate(int month, int year){
-        //CHANGED from getApplicationContext
         adapter = new GridCellAdapter(getContext(), R.id.calendar_day_gridcell, month, year);
         _calendar.set(year, month - 1, _calendar.get(Calendar.DAY_OF_MONTH));
         currentMonth.setText(DateFormat.format(dateTemplate, _calendar.getTime()));
@@ -305,7 +274,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             gridcell.setOnClickListener(this);
 
             num_of_day = (TextView) row.findViewById(R.id.num_of_day);
-            //num_of_day.setOnClickListener(this);
 
             //Spacing issues
             String[] day_color = list.get(position).split("-");
@@ -323,24 +291,18 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             //TODO: (maybe) try to set text to textview num_of_day. Currently not working.
             // Set the Day GridCell
             gridcell.setText(theday);
-            //num_of_day.setText("Hello");
 
             gridcell.setTag(theday + "-" + themonth + "-" + theyear);
-            //Log.i("DAy", theday);
-            //num_of_day.setTag(theday + "-" + themonth + "-" + theyear);
 
             if (day_color[1].equals("GREY"))
                 gridcell.setTextColor(Color.GRAY);
-                //num_of_day.setTextColor(Color.GRAY);
 
             if (day_color[1].equals("WHITE"))
                 gridcell.setTextColor(Color.WHITE);
-                //num_of_day.setTextColor(Color.WHITE);
 
 
             if (day_color[1].equals("BLUE"))
                 gridcell.setTextColor(getResources().getColor(R.color.color20));
-                //num_of_day.setTextColor(getResources().getColor(R.color.color20));
 
             // Changing background colors //
 
@@ -364,31 +326,27 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             todaysActivities = new ArrayList<ActivityEntry>();
 
             for(ActivityEntry activity : sortedActivities) {
-                if((activity.getDay() == Integer.parseInt(theday)) && (activity.getMonth() == monthToInt(themonth))) { //&& activity.getYear() == Integer.parseInt(theyear)) {
-                    //Log.i("Today's activitiy", theday + " has an activity");
+                if((activity.getDay() == Integer.parseInt(theday)) && (activity.getMonth() == monthToInt(themonth)) && (activity.getYear() == Integer.parseInt(theyear))) {
                     todaysActivities.add(activity);
-                    //rectBG.setColor(todaysActivities.get(0).getColor());
                 }
             }
 
             numActivities = activitiesPerDay(todaysActivities);
-            //Log.i("number activities today", Integer.toString(numActivities));
 
-            //if function = 1
             if(numActivities == 1) {
                 rectBG.setColor(todaysActivities.get(0).getColor());
                 rect2BG.setColor(todaysActivities.get(0).getColor());
                 rect3BG.setColor(todaysActivities.get(0).getColor());
                 rect4BG.setColor(todaysActivities.get(0).getColor());
             }
-            //if function = 2
+
             else if(numActivities == 2) {
                 rectBG.setColor(todaysActivities.get(0).getColor());
                 rect2BG.setColor(todaysActivities.get(0).getColor());
                 rect3BG.setColor(todaysActivities.get(1).getColor());
                 rect4BG.setColor(todaysActivities.get(1).getColor());
             }
-            //if function = 3
+
             else if(numActivities == 3) {
 
                 rectBG.setColor(todaysActivities.get(0).getColor());
@@ -396,14 +354,14 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                 rect3BG.setColor(todaysActivities.get(2).getColor());
                 rect4BG.setColor(getResources().getColor(R.color.color32)); //base color
             }
-            //if function = 4+
+
             else if(numActivities >= 4) {
                 rectBG.setColor(todaysActivities.get(0).getColor());
                 rect2BG.setColor(todaysActivities.get(1).getColor());
                 rect3BG.setColor(todaysActivities.get(2).getColor());
                 rect4BG.setColor(todaysActivities.get(3).getColor()); //base color
             }
-            //set back to normal
+
             else {
                 rectBG.setColor(getResources().getColor(R.color.color32));
                 rect2BG.setColor(getResources().getColor(R.color.color32));
@@ -418,12 +376,10 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             return numActivities;
          }
 
-
         @Override
         public void onClick(View view){
             date_month_year = (String) view.getTag();
             flag ="Date selected ...";
-            Log.d(TAG, "onClick: " + date_month_year);
         }
 
         public int getCurrentDayOfMonth(){
@@ -500,7 +456,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         {
             activities2.addAll(activities);
         }
-        Log.i("Filtered activities size", Integer.toString(activities2.size()));
         adapter.notifyDataSetChanged();
         return activities2;
     }

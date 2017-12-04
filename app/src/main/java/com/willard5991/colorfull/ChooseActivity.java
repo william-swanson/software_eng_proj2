@@ -52,7 +52,7 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
 
         myApp = (MyApplication) this.getApplication();
 
-//        Use if we need to clear Realm
+//        Uncomment if we need to clear Realm
 //        myApp.realm.beginTransaction();
 //        myApp.realm.deleteAll();
 //        myApp.realm.commitTransaction();
@@ -70,7 +70,6 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
             BoolFlag flag = myApp.realm.createObject(BoolFlag.class);
             flag.setFlag(true);
             myApp.realm.commitTransaction();
-            Log.i("TAG","initial setting flag");
 
             //Add option for creating custom activityentries
             //Add example activityentries
@@ -90,20 +89,8 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
 
             myApp.realm.commitTransaction();
 
-        } else {
-            Log.i("TAG","flag already set");
         }
 
-//        try {
-//            RealmResults<BoolFlag> boolRes = realm.where(BoolFlag.class).findAll();
-//            Log.i("TAG", "Num entries: " + Integer.toString(boolRes.size()));
-//        } catch (RealmMigrationNeededException e){
-//            //if does not exist in the database yet
-//            realm.beginTransaction();
-//            BoolFlag flag = realm.createObject(BoolFlag.class);
-//            flag.setFlag(true);
-//            realm.commitTransaction();
-//        }
 
         submitButton = (Button) findViewById(R.id.submit_button);
         xOut = (ImageButton) findViewById(R.id.x_button);
@@ -120,10 +107,8 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
 
         Intent transitionIntent = getIntent();
         final int colorValue = (int) transitionIntent.getIntExtra("color",0);
-        Log.i("TAG", "Color selected: " + Integer.toString(colorValue));
 
         if(colorValue == -1){
-            Log.i("TAG","changing background image");
             submitButton.setBackgroundColor(Color.parseColor("#e6e7e8"));
         }
         if(colorValue == -16777216){
@@ -132,11 +117,6 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
         CoordinatorLayout l = (CoordinatorLayout) findViewById(R.id.back);
         l.setBackgroundColor(colorValue);
 
-//        ActivityEntry addActivity = realm.createObject(ActivityEntry.class);
-//        addActivity.setActivityName("Add Activity +");
-//        data.add(addActivity);
-//
-//        fillTestData();
         getAvailableActivities();
 
         recyclerView = (RecyclerView) findViewById(R.id.actRView);
@@ -183,8 +163,6 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
                     newActivity.setYear(y);
                     myApp.realm.commitTransaction();
 
-                    Log.i("TAG",activitySelected.getName());
-
                     Intent intent = new Intent(getBaseContext(), AnalysisActivity.class);
                     startActivity(intent);
                 }
@@ -194,7 +172,6 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
 
     @Override
     public void onItemClick(View view, int position) {
-        Log.i("TAG", "You clicked number " + adapter.getItem(position) + ", which is at cell position " + position);
         activitySelected = data.get(position);
 
         //If the user selects the "Add Activity +" option
@@ -228,7 +205,6 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
             alert.show();
         }
 
-        Log.i("TAG","Color selected: " + activitySelected.getName());
     }
 
     private void getAvailableActivities(){
@@ -236,65 +212,6 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
         for(ActivityName r : results){
             data.add(r);
         }
-    }
-
-    private void fillTestData(){
-        /*
-        ActivityEntry workedOut = new ActivityEntry();
-        workedOut.setActivityName("Worked Out");
-        data.add(workedOut);
-        ActivityEntry running = new ActivityEntry();
-        running.setActivityName("Running");
-        data.add(running);
-        ActivityEntry ateDinner = new ActivityEntry();
-        ateDinner.setActivityName("Ate Dinner");
-        data.add(ateDinner);
-        ActivityEntry ateBreakfast = new ActivityEntry();
-        ateBreakfast.setActivityName("Ate Breakfast");
-        data.add(ateBreakfast);
-        ActivityEntry ateASnack = new ActivityEntry();
-        ateASnack.setActivityName("Ate a Snack");
-        data.add(ateASnack);
-        ActivityEntry ateLunch = new ActivityEntry();
-        ateLunch.setActivityName("Ate Lunch");
-        data.add(ateLunch);
-        ActivityEntry cooked = new ActivityEntry();
-        cooked.setActivityName("Cooked");
-        data.add(cooked);
-        ActivityEntry sick = new ActivityEntry();
-        sick.setActivityName("Sick");
-        data.add(sick);
-        ActivityEntry nightOut = new ActivityEntry();
-        nightOut.setActivityName("Night Out");
-        data.add(nightOut);
-        ActivityEntry watchAMovie = new ActivityEntry();
-        watchAMovie.setActivityName("Watch a Movie");
-        data.add(watchAMovie);
-        ActivityEntry sawAShow = new ActivityEntry();
-        sawAShow.setActivityName("Saw a Show");
-        data.add(sawAShow);
-        ActivityEntry wentShopping = new ActivityEntry();
-        wentShopping.setActivityName("Went Shopping");
-        data.add(wentShopping);
-        ActivityEntry groceryStore = new ActivityEntry();
-        groceryStore.setActivityName("Grocery Store");
-        data.add(groceryStore);
-        ActivityEntry lateToWork = new ActivityEntry();
-        lateToWork.setActivityName("Late to Work");
-        data.add(lateToWork);
-        ActivityEntry meeting = new ActivityEntry();
-        meeting.setActivityName("Meeting");
-        data.add(meeting);
-
-
-        for(int i = 0; i<10; i++){
-            ActivityEntry newAct = new ActivityEntry();
-            newAct.setActivityName("Activity"+Integer.toString(i));
-            data.add(newAct);
-        }
-        */
-
-        return;
     }
 
 }

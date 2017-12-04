@@ -23,7 +23,7 @@ public class MyApplication extends Application {
         Realm.setDefaultConfiguration(config);
         realm = realm.getDefaultInstance();
         //UNCOMMENT TO ADD TEST DATA
-        createTestData();
+        //createTestData();
     }
 
 

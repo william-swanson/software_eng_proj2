@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
         setContentView(R.layout.activity_main);     
 
         // data to populate the RecyclerView with
-        //String[] data = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35"};
         data = context.getResources().getIntArray(R.array.colorPicker);
         submitButton = (Button) findViewById(R.id.submit_button);
         myView = (RecyclerView) findViewById(R.id.rvColors);
@@ -59,8 +58,6 @@ public class MainActivity extends AppCompatActivity implements ColorRecyclerView
     @Override
     public void onItemClick(View view, int colorPosition) {
         position = colorPosition;
-        Log.i("TAG", "You clicked number " + adapter.getItem(position) + ", which is at cell position " + position);
-        Log.i("TAG","Color selected: " + data[position]);
 
         //if black button, button text white
         if(position == 34) {

@@ -53,8 +53,6 @@ public class AnalysisActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab){
                 viewPager.setCurrentItem(tab.getPosition());
-//                viewPager.getAdapter().
-//                viewPager.setCurrentFragment(tab.getPosition());
             }
 
             @Override
@@ -80,9 +78,8 @@ public class AnalysisActivity extends AppCompatActivity {
         filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.v("hi", "activity");
                 String filter = "RefreshSpinner";
-                Intent intent = new Intent(filter); //If you need extra, add: intent.putExtra("extra","something");
+                Intent intent = new Intent(filter);
                 LocalBroadcastManager.getInstance(getBaseContext()).sendBroadcast(intent);
             }
 
@@ -101,7 +98,6 @@ public class AnalysisActivity extends AppCompatActivity {
         for (ActivityEntry activity: activities)
         {
             if(!activityNames.contains(activity.getActivityName())) {
-                Log.i("TAG",activity.getActivityName());
                 activityNames.add(activity.getActivityName());
             }
         }
