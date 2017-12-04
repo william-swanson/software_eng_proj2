@@ -105,19 +105,6 @@ public class ChartsFragment extends Fragment {
         });
         //End Version 2 spinner
 
-//        analysisActivity.filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                Log.v("hi", "chart fragment");
-//                addDataSet();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
-
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
@@ -132,7 +119,6 @@ public class ChartsFragment extends Fragment {
 
             }
         });
-
 
         return view;
     }

@@ -99,40 +99,11 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         calendarView.setAdapter(adapter);
 
         analysisActivity = (AnalysisActivity) this.getActivity();
-//        analysisActivity.filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                Log.v("hi", "calendar fragment");
-//                sortedActivities = getFilteredItems();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
 
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mYourBroadcastReceiver,
                 new IntentFilter("RefreshSpinner"));
 
         sortedActivities = getFilteredItems();
-
-        /*
-        //this is how you add test data
-        analysisActivity.realm.beginTransaction();
-        ActivityEntry activity4 = analysisActivity.realm.createObject(ActivityEntry.class);
-
-        activity4.setActivityName("running");
-        activity4.setYear(2017);
-        activity4.setDay(10);
-        activity4.setMonth(11);
-        activity4.setColor(getResources().getColor(R.color.color1));
-        activity4.setId("1234");
-
-        analysisActivity.realm.commitTransaction();
-        */
-        //Log.i("Color", Integer.toString(getResources().getColor(R.color.color1)));
-
 
         return view;
     }
@@ -364,31 +335,27 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             todaysActivities = new ArrayList<ActivityEntry>();
 
             for(ActivityEntry activity : sortedActivities) {
-                if((activity.getDay() == Integer.parseInt(theday)) && (activity.getMonth() == monthToInt(themonth))) { //&& activity.getYear() == Integer.parseInt(theyear)) {
-                    //Log.i("Today's activitiy", theday + " has an activity");
+                if((activity.getDay() == Integer.parseInt(theday)) && (activity.getMonth() == monthToInt(themonth)) && (activity.getYear() == Integer.parseInt(theyear))) {
                     todaysActivities.add(activity);
-                    //rectBG.setColor(todaysActivities.get(0).getColor());
                 }
             }
 
             numActivities = activitiesPerDay(todaysActivities);
-            //Log.i("number activities today", Integer.toString(numActivities));
 
-            //if function = 1
             if(numActivities == 1) {
                 rectBG.setColor(todaysActivities.get(0).getColor());
                 rect2BG.setColor(todaysActivities.get(0).getColor());
                 rect3BG.setColor(todaysActivities.get(0).getColor());
                 rect4BG.setColor(todaysActivities.get(0).getColor());
             }
-            //if function = 2
+
             else if(numActivities == 2) {
                 rectBG.setColor(todaysActivities.get(0).getColor());
                 rect2BG.setColor(todaysActivities.get(0).getColor());
                 rect3BG.setColor(todaysActivities.get(1).getColor());
                 rect4BG.setColor(todaysActivities.get(1).getColor());
             }
-            //if function = 3
+
             else if(numActivities == 3) {
 
                 rectBG.setColor(todaysActivities.get(0).getColor());
@@ -396,14 +363,14 @@ public class CalendarFragment extends Fragment implements OnClickListener {
                 rect3BG.setColor(todaysActivities.get(2).getColor());
                 rect4BG.setColor(getResources().getColor(R.color.color32)); //base color
             }
-            //if function = 4+
+
             else if(numActivities >= 4) {
                 rectBG.setColor(todaysActivities.get(0).getColor());
                 rect2BG.setColor(todaysActivities.get(1).getColor());
                 rect3BG.setColor(todaysActivities.get(2).getColor());
                 rect4BG.setColor(todaysActivities.get(3).getColor()); //base color
             }
-            //set back to normal
+
             else {
                 rectBG.setColor(getResources().getColor(R.color.color32));
                 rect2BG.setColor(getResources().getColor(R.color.color32));
@@ -417,7 +384,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             int numActivities = today.size();
             return numActivities;
          }
-
 
         @Override
         public void onClick(View view){
@@ -500,7 +466,6 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         {
             activities2.addAll(activities);
         }
-        Log.i("Filtered activities size", Integer.toString(activities2.size()));
         adapter.notifyDataSetChanged();
         return activities2;
     }
