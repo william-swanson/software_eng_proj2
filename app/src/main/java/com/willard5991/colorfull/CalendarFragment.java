@@ -33,6 +33,7 @@ import java.util.Locale;
 
 import io.realm.RealmResults;
 
+
 import static android.content.ContentValues.TAG;
 
 /**
@@ -40,6 +41,7 @@ import static android.content.ContentValues.TAG;
  */
 public class CalendarFragment extends Fragment implements OnClickListener {
 
+    private AnalysisActivity analysisActivity;
     private TextView currentMonth;
     private ImageView prevMonth;
     private ImageView nextMonth;
@@ -50,7 +52,9 @@ public class CalendarFragment extends Fragment implements OnClickListener {
     private static final String dateTemplate = "MMMM yyyy";
     String flag ="abc";
     String date_month_year;
-    private ActivityEntry activity1;
+    //private ActivityEntry activity1;
+    RealmResults<ActivityEntry> allActivities;
+    private ArrayList<ActivityEntry> todaysActivities;
 
     public CalendarFragment() {
         // Required empty public constructor
@@ -85,13 +89,25 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         adapter.notifyDataSetChanged();
         calendarView.setAdapter(adapter);
 
-        //TODO: fill up activity1 with params for testing. Right now I can't figure out how to add a day, time, or color
-        //activity1.setDate();
-        //activity1.setTime();
-        //activity1.setActivityName("running");
-        //activity1.setColor(R.color.color20));
-        //we may want to look into changing color to an int
+        analysisActivity = (AnalysisActivity) this.getActivity();
+        allActivities = analysisActivity.realm.where(ActivityEntry.class).findAll();
+        
 
+        /*
+        //this is how you add test data
+        analysisActivity.realm.beginTransaction();
+        ActivityEntry activity4 = analysisActivity.realm.createObject(ActivityEntry.class);
+
+        activity4.setActivityName("running");
+        activity4.setYear(2017);
+        activity4.setDay(10);
+        activity4.setMonth(11);
+        activity4.setColor(getResources().getColor(R.color.color1));
+        activity4.setId("1234");
+
+        analysisActivity.realm.commitTransaction();
+        */
+        //Log.i("Color", Integer.toString(getResources().getColor(R.color.color1)));
 
 
         return view;
@@ -145,6 +161,8 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         private ImageView rect2;
         private ImageView rect3;
         private ImageView rect4;
+
+
 
         private TextView num_events_per_day;
         private final HashMap<String, Integer> eventsPerMonthMap;
@@ -295,6 +313,7 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             //num_of_day.setText("Hello");
 
             gridcell.setTag(theday + "-" + themonth + "-" + theyear);
+            //Log.i("DAy", theday);
             //num_of_day.setTag(theday + "-" + themonth + "-" + theyear);
 
             if (day_color[1].equals("GREY"))
@@ -327,37 +346,54 @@ public class CalendarFragment extends Fragment implements OnClickListener {
 
             //TODO: function that returns the number of activities for the day
 
-            //if function = 1
-            if(position == 10 || position == 25) {
+            int numActivities = 0;
 
-                rectBG.setColor(getResources().getColor(R.color.color1));
-                rect2BG.setColor(getResources().getColor(R.color.color1));
-                rect3BG.setColor(getResources().getColor(R.color.color1));
-                rect4BG.setColor(getResources().getColor(R.color.color1));
+            todaysActivities = new ArrayList<ActivityEntry>();
+            Log.i("Today's day: ", theday);
+
+            for(ActivityEntry activity : allActivities) {
+                if((activity.getDay() == Integer.parseInt(theday)) && (activity.getMonth() == monthToInt(themonth))) { //&& activity.getYear() == Integer.parseInt(theyear)) {
+                    //Log.i("Today's activitiy", theday + " has an activity");
+                    todaysActivities.add(activity);
+                    //rectBG.setColor(todaysActivities.get(0).getColor());
+                }
+            }
+
+            numActivities = activitiesPerDay(todaysActivities);
+            Log.i("number activities today", Integer.toString(numActivities));
+
+            //if function = 1
+            if(numActivities == 1) {
+                rectBG.setColor(todaysActivities.get(0).getColor());
+                rect2BG.setColor(todaysActivities.get(0).getColor());
+                rect3BG.setColor(todaysActivities.get(0).getColor());
+                rect4BG.setColor(todaysActivities.get(0).getColor());
 
             }
             //if function = 2
-            else if(position == 13 || position == 8) {
-                rectBG.setColor(getResources().getColor(R.color.color5));
-                rect2BG.setColor(getResources().getColor(R.color.color5));
-                rect3BG.setColor(getResources().getColor(R.color.color9));
-                rect4BG.setColor(getResources().getColor(R.color.color9));
+            else if(numActivities == 2) {
+                rectBG.setColor(todaysActivities.get(0).getColor());
+                rect2BG.setColor(todaysActivities.get(0).getColor());
+                rect3BG.setColor(todaysActivities.get(1).getColor());
+                rect4BG.setColor(todaysActivities.get(1).getColor());
+                Log.i("2 activities?", "true");
             }
 
             //if function = 3
-            else if(position == 15) {
-                rectBG.setColor(getResources().getColor(R.color.color20));
-                rect2BG.setColor(getResources().getColor(R.color.color7));
-                rect3BG.setColor(getResources().getColor(R.color.color19));
+            else if(numActivities == 3) {
+
+                rectBG.setColor(todaysActivities.get(0).getColor());
+                rect2BG.setColor(todaysActivities.get(1).getColor());
+                rect3BG.setColor(todaysActivities.get(2).getColor());
                 rect4BG.setColor(getResources().getColor(R.color.color32)); //base color
             }
 
             //if function = 4+
-            else if(position == 22) {
-                rectBG.setColor(getResources().getColor(R.color.color30));
-                rect2BG.setColor(getResources().getColor(R.color.color27));
-                rect3BG.setColor(getResources().getColor(R.color.color16));
-                rect4BG.setColor(getResources().getColor(R.color.color9)); //base color
+            else if(numActivities >= 4) {
+                rectBG.setColor(todaysActivities.get(0).getColor());
+                rect2BG.setColor(todaysActivities.get(1).getColor());
+                rect3BG.setColor(todaysActivities.get(2).getColor());
+                rect4BG.setColor(todaysActivities.get(3).getColor()); //base color
             }
 
             //set back to normal
@@ -369,21 +405,17 @@ public class CalendarFragment extends Fragment implements OnClickListener {
             }
 
 
-            /*TODO: if statements for number of activities per day
-                1 activity = 4 rectangles that color
-                2 activities = 2 rectangles one color, 2 the other
-                3 activities = 3rectangles for 3 colors, 4th rect normal bg
-                4+ activities = each rect a different color
-                We can assume that the app caps a user at 4 activities a day, but that won't be implemented
-            */
 
-            //reset BG color back to normal
-            //rectBG.setColor(getResources().getColor(R.color.color32));
-            //rect2BG.setColor(getResources().getColor(R.color.color32));
+
 
             return row;
         }
-
+         public int activitiesPerDay(ArrayList<ActivityEntry> today) {
+            //This is giving me a memory leak
+            int numActivities = today.size();
+            //Log.i("Number activities", Integer.toString(numActivities));
+            return numActivities;
+         }
 
 
         @Override
@@ -407,6 +439,47 @@ public class CalendarFragment extends Fragment implements OnClickListener {
         }
         public int getCurrentWeekDay(){
             return currentWeekDay;
+        }
+        public int monthToInt(String month) {
+            int monthNum = 0;
+            if(month.equals("January")) {
+                monthNum = 0;
+            }
+            if(month.equals("February")) {
+                monthNum = 1;
+            }
+            if(month.equals("March")) {
+                monthNum = 2;
+            }
+            if(month.equals("April")) {
+                monthNum = 3;
+            }
+            if(month.equals("May")) {
+                monthNum = 4;
+            }
+            if(month.equals("June")) {
+                monthNum = 5;
+            }
+            if(month.equals("July")) {
+                monthNum = 6;
+            }
+            if(month.equals("August")) {
+                monthNum = 7;
+            }
+            if(month.equals("September")) {
+                monthNum = 8;
+            }
+            if(month.equals("October")) {
+                monthNum = 9;
+            }
+            if(month.equals("November")) {
+                monthNum = 10;
+            }
+            if(month.equals("December")) {
+                monthNum = 11;
+            }
+            return monthNum;
+
         }
     }
 

@@ -93,7 +93,9 @@ public class ChartsFragment extends Fragment {
         ArrayList<Integer> integerColors = new ArrayList<Integer>();
         for(ActivityEntry color: colors)
         {
+
             integerColors.add(color.getColor());
+
         }
 
         pieDataSet.setColors(integerColors);
@@ -110,16 +112,17 @@ public class ChartsFragment extends Fragment {
         ArrayList<ActivityEntry> activities2 = new ArrayList<ActivityEntry>();
         String choice = analysisActivity.filterSpinner.getSelectedItem().toString();
 
-        if(!choice.equals("All"))
-        {
+        //if(!choice.equals("All"))
+        //{
             for(ActivityEntry activity: activities)
             {
                 if(activity.getActivityName().equals(choice));
                 {
                     activities2.add(activity);
                 }
+                //Log.i("Activity name", activity.getActivityName());
             }
-        }
+        //}
 
         for (ActivityEntry activity: activities2)
         {

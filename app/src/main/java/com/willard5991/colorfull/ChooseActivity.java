@@ -76,6 +76,7 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
 
             ActivityName addActivity = myApp.realm.createObject(ActivityName.class);
             addActivity.setName("Add Activity +");
+
             ActivityName workedOut = myApp.realm.createObject(ActivityName.class);
             workedOut.setName("Worked Out");
             ActivityName running = myApp.realm.createObject(ActivityName.class);
@@ -86,6 +87,7 @@ public class ChooseActivity extends AppCompatActivity implements ActivityRecycle
             ateBreakfast.setName("Ate Breakfast");
 
             myApp.realm.commitTransaction();
+
         } else {
             Log.i("TAG","flag already set");
         }
